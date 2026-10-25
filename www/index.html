@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Buku Kerja Akuntansi</title>
+<meta name="description" content="Jurnal, buku besar otomatis, neraca saldo, dan laporan keuangan dengan soal dan koreksi AI.">
+<meta name="theme-color" content="#16332B">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1EEE1;--paper-raised:#F8F5EA;--rule:#C9C0A0;--rule-strong:#9C9270;
+  --green:#16332B;--green-soft:#2C4C40;--red:#9C2B20;--red-soft:#C24334;--blue:#24466B;
+  --gold:#A9812F;--gold-soft:#C9A24A;--cream:#F8F5EA;--ok:#1E6B45;--okbg:#DCEBDD;--badbg:#F3D7D2;
+  --shadow:rgba(22,51,43,.16);
+  --f-display:'IBM Plex Serif',Georgia,serif;--f-body:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;--f-mono:'IBM Plex Mono','Courier New',monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--green);font-family:var(--f-body);-webkit-font-smoothing:antialiased}
+body{background-image:linear-gradient(var(--rule) 1px,transparent 1px);background-size:100% 34px;background-attachment:local;min-height:100vh}
+.app{max-width:960px;margin:0 auto;padding:0 12px 56px}
+button{font-family:inherit}
+
+/* masthead */
+.masthead{display:flex;align-items:center;gap:12px;padding:18px 2px 12px;border-bottom:3px double var(--green)}
+.tag{background:var(--green);color:var(--cream);font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;padding:5px 8px;border-radius:3px;flex-shrink:0}
+.mast-title{flex:1;min-width:0}
+.mast-title h1{font-family:var(--f-display);font-weight:700;font-size:1.35rem;margin:0}
+.mast-title p{margin:2px 0 0;font-size:.8rem;color:var(--green-soft)}
+.btn-icon{background:transparent;border:1px solid var(--rule-strong);border-radius:50%;width:40px;height:40px;font-size:1.05rem;color:var(--green);cursor:pointer;flex-shrink:0}
+.btn-icon:hover{background:var(--paper-raised)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;display:flex;gap:6px;overflow-x:auto;padding:10px 2px;background:var(--paper);border-bottom:1px solid var(--rule-strong);scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{flex:0 0 auto;border:1px solid var(--rule-strong);background:var(--paper-raised);color:var(--green);font-size:.85rem;font-weight:600;padding:8px 13px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.nav button.on{background:var(--green);color:var(--cream);border-color:var(--green)}
+
+main{padding-top:16px;display:flex;flex-direction:column;gap:16px}
+.tab{display:flex;flex-direction:column;gap:14px}
+h2{font-family:var(--f-display);font-size:1.08rem;margin:0}
+h3{font-family:var(--f-display);font-size:.98rem;margin:0 0 6px}
+.muted{color:var(--green-soft);font-size:.88rem;line-height:1.55;margin:0}
+.card{background:var(--paper-raised);border:1px solid var(--rule-strong);border-radius:6px;padding:14px 15px}
+.card-red{border-color:var(--red)}
+.card-red h2,.card-red h3{color:var(--red)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.between{justify-content:space-between}
+.grow{flex:1;min-width:0}
+
+/* buttons / inputs */
+.btn{font-weight:600;font-size:.86rem;padding:9px 14px;border-radius:5px;border:1.5px solid transparent;cursor:pointer;white-space:nowrap}
+.btn-gold{background:var(--gold);color:var(--cream)}.btn-gold:hover{background:var(--gold-soft)}
+.btn-red{background:var(--red);color:var(--cream)}.btn-red:hover{background:var(--red-soft)}
+.btn-green{background:var(--green);color:var(--cream)}
+.btn-ghost{background:transparent;border-color:var(--green);color:var(--green)}.btn-ghost:hover{background:var(--green);color:var(--cream)}
+.btn-sm{padding:6px 10px;font-size:.78rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-full{width:100%}
+input,select,textarea{font-family:var(--f-body);font-size:.92rem;color:var(--green)}
+.in{width:100%;border:1px solid var(--rule-strong);border-radius:4px;padding:8px;background:var(--paper-raised)}
+.in-plain{background:transparent;border:none;border-bottom:1px solid var(--rule-strong);padding:4px 2px;width:100%}
+.in-plain:focus,.in:focus{outline:none;border-color:var(--red)}
+.lbl{display:block;font-size:.75rem;font-weight:600;color:var(--green-soft);margin:10px 0 4px}
+.hint{font-size:.76rem;color:var(--green-soft);line-height:1.5;margin:6px 0 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--green);background:transparent;color:var(--green);padding:6px 12px;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer}
+.chip.on{background:var(--green);color:var(--cream)}
+
+/* soal */
+.narasi{margin:6px 0 0;padding-left:20px;font-size:.9rem;line-height:1.6}
+.narasi li{margin-bottom:3px}
+.narasi-h{margin-top:10px;font-weight:700;font-size:.85rem;color:var(--red)}
+.soal-judul{font-family:var(--f-display);font-weight:700}
+.soal-usaha{font-size:.8rem;color:var(--green-soft)}
+.soal-strip{background:var(--paper-raised);border:1px dashed var(--gold);border-radius:6px;padding:8px 12px}
+.soal-strip summary{cursor:pointer;font-weight:600;font-size:.88rem}
+.badge{display:inline-block;font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:999px}
+.badge.ok{background:var(--okbg);color:var(--ok)}.badge.bad{background:var(--badbg);color:var(--red)}
+
+/* tables */
+.tw{overflow-x:auto;border:1px solid var(--green);border-radius:4px;background:var(--paper-raised)}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--rule);padding:6px 7px;font-size:.82rem}
+thead th{background:var(--green);color:var(--cream);border-color:var(--green-soft);font-weight:600;text-align:center;font-size:.76rem}
+td.n,th.n{text-align:right;font-family:var(--f-mono);white-space:nowrap}
+td.ctr{text-align:center}
+tr.tot td{font-weight:700;border-top:2px solid var(--green);background:rgba(201,192,160,.25)}
+tr.sec td{font-weight:700;background:rgba(22,51,43,.07)}
+td.ind1{padding-left:20px}td.ind2{padding-left:34px}
+td.kr{padding-left:28px}
+.pers-table{min-width:900px}
+.pers-table th,.pers-table td{min-width:96px}
+.pers-table th:nth-child(1),.pers-table td:nth-child(1){min-width:48px}
+.pers-table td:nth-child(2){min-width:150px}
+.pers-table th:last-child,.pers-table td:last-child{min-width:34px}
+.pers-table td{padding:0}
+.pers-table td input{width:100%;border:none;background:transparent;padding:7px 6px;text-align:right;font-family:var(--f-mono);font-size:.82rem}
+.pers-table td.c-ket input{text-align:left;font-family:var(--f-body)}
+.pers-table td.c-tgl input{text-align:center}
+.pers-table td input:focus{outline:none;background:#fffbec}
+.pers-table td.ok{background:var(--okbg)}.pers-table td.bad{background:var(--badbg)}
+.pers-table td.c-st{text-align:center;font-size:.74rem;padding:0 6px;white-space:nowrap;font-weight:700}
+.c-st.good{color:var(--ok)}.c-st.nope{color:var(--red)}
+.pers-table td.c-del{text-align:center;padding:0}
+.btn-x{background:transparent;border:none;color:var(--red);cursor:pointer;font-size:1rem;padding:6px 9px}
+tr.unbal{box-shadow:inset 3px 0 0 var(--red)}
+.status{border:1px dashed var(--rule-strong);border-radius:4px;padding:9px 12px;font-family:var(--f-mono);font-size:.82rem;display:flex;gap:8px 12px;flex-wrap:wrap;align-items:center}
+.status b.ok{color:var(--blue)}.status b.bad{color:var(--red)}
+
+/* jurnal form */
+.jline{display:grid;grid-template-columns:1fr;gap:6px;padding:8px 0;border-bottom:1px dotted var(--rule-strong)}
+.jline .jl-amt{display:grid;grid-template-columns:1fr 1fr 36px;gap:6px}
+.jline input.amt{text-align:right;font-family:var(--f-mono)}
+.jcard{border:1px solid var(--rule-strong);border-radius:5px;margin-bottom:10px;background:var(--paper-raised);overflow:hidden}
+.jcard-h{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;background:rgba(22,51,43,.07);font-size:.8rem;font-weight:600;flex-wrap:wrap}
+.jcard-h .acts{display:flex;gap:4px;flex-wrap:wrap}
+.jcard .jket{padding:6px 10px;font-size:.8rem;color:var(--green-soft);font-style:italic}
+.jcard table{border:none}
+
+/* ledger T */
+.tacc{border:1px solid var(--green);border-radius:4px;margin-bottom:12px;background:var(--paper-raised);overflow:hidden}
+.tacc-h{background:var(--green);color:var(--cream);padding:6px 10px;font-weight:600;font-size:.85rem;display:flex;justify-content:space-between;gap:8px}
+.tacc .tt{display:grid;grid-template-columns:1fr 1fr}
+.tacc .tt>div{padding:4px 8px;font-size:.78rem;font-family:var(--f-mono)}
+.tacc .tt>div:first-child{border-right:2px solid var(--green)}
+.tacc .li{display:flex;justify-content:space-between;gap:6px;padding:1px 0}
+.tacc .tfoot{display:flex;justify-content:space-between;padding:6px 10px;background:rgba(201,192,160,.25);font-size:.78rem;font-weight:700;border-top:1px solid var(--green)}
+
+.fb{font-size:.9rem;line-height:1.65;white-space:pre-wrap}
+.fb .loading{color:var(--green-soft);font-style:italic}
+.lajur{min-width:980px}
+.lajur th,.lajur td{font-size:.74rem}
+.rep td{font-size:.86rem}
+.foot{text-align:center;font-size:.74rem;color:var(--green-soft);margin-top:18px}
+
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(22,51,43,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.modal{background:var(--paper);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;border-radius:12px 12px 0 0;padding:18px 20px 26px;box-shadow:0 -8px 30px var(--shadow)}
+@media(min-width:640px){.overlay{align-items:center}.modal{border-radius:10px}}
+.modal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--green);color:var(--cream);padding:10px 18px;border-radius:20px;font-size:.84rem;box-shadow:0 4px 16px var(--shadow);z-index:60;max-width:90vw;text-align:center}
+@media(min-width:700px){.jline{grid-template-columns:1.5fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="masthead">
+    <div class="tag">AK-2</div>
+    <div class="mast-title"><h1>Buku Kerja Akuntansi</h1><p>Jurnal, buku besar, dan laporan keuangan</p></div>
+    <button id="btn-settings" class="btn-icon" aria-label="Pengaturan" title="Pengaturan">⚙</button>
+  </header>
+
+  <nav class="nav" id="nav">
+    <button data-tab="soal" class="on">Soal</button>
+    <button data-tab="pers">Persamaan</button>
+    <button data-tab="jurnal">Jurnal</button>
+    <button data-tab="besar">Buku Besar</button>
+    <button data-tab="saldo">Neraca Saldo</button>
+    <button data-tab="lajur">Neraca Lajur</button>
+    <button data-tab="laporan">Laporan</button>
+    <button data-tab="akun">Akun</button>
+  </nav>
+
+  <main>
+    <!-- SOAL -->
+    <section class="tab" id="tab-soal">
+      <div class="card">
+        <div class="row between">
+          <h2>Soal Latihan</h2>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button id="btn-soal-ai" class="btn btn-gold">Buat Soal dengan AI</button>
+          <button id="btn-soal-contoh" class="btn btn-ghost">Soal Contoh</button>
+          <button id="btn-soal-hapus" class="btn btn-ghost">Hapus</button>
+        </div>
+        <div id="soal-box" style="margin-top:12px"></div>
+      </div>
+      <div class="card" id="soal-aksi" hidden>
+        <h3>Kerjakan soal ini</h3>
+        <p class="muted">Isi jawabanmu di tab <b>Persamaan</b> (tabel saldo) dan/atau tab <b>Jurnal</b>, lalu tekan Submit di tab itu. Pemeriksaan dilakukan otomatis dengan kunci jawaban, AI menjelaskan kesalahannya.</p>
+        <div class="row" style="margin-top:10px">
+          <button class="btn btn-green" data-goto="pers">Ke Persamaan</button>
+          <button class="btn btn-green" data-goto="jurnal">Ke Jurnal</button>
+        </div>
+        <div id="soal-skor" style="margin-top:10px"></div>
+      </div>
+      <details class="card" id="soal-kunci" hidden>
+        <summary style="cursor:pointer;font-weight:600">Lihat kunci jawaban</summary>
+        <div id="kunci-box" style="margin-top:10px"></div>
+        <div class="row" style="margin-top:10px">
+          <button id="btn-muat-kunci" class="btn btn-ghost btn-sm">Muat kunci ke Jurnal &amp; Buku Besar</button>
+        </div>
+        <p class="hint">Memuat kunci akan mengganti isi jurnalmu, supaya kamu bisa melihat buku besar dan laporan keuangannya.</p>
+      </details>
+    </section>
+
+    <!-- PERSAMAAN -->
+    <section class="tab" id="tab-pers" hidden>
+      <div class="soal-strip-host"></div>
+      <div class="card">
+        <div class="row between">
+          <div class="grow" style="max-width:62%">
+            <input id="in-usaha" class="in-plain" style="font-family:var(--f-display);font-weight:600;font-size:1.05rem" placeholder="Nama usaha">
+            <input id="in-periode" class="in-plain" style="font-size:.84rem;color:var(--green-soft)" placeholder="Periode, mis. September 2026">
+          </div>
+        </div>
+        <p class="hint">Isi saldo setelah setiap transaksi, bukan hanya jumlah perubahannya. Setiap baris harus seimbang: Harta = Utang + Modal.</p>
+        <div class="row" style="margin:10px 0">
+          <button id="pers-add" class="btn btn-ghost">+ Transaksi</button>
+          <button id="pers-submit" class="btn btn-red">Submit &amp; Periksa</button>
+          <button id="pers-clear" class="btn btn-ghost btn-sm">Kosongkan</button>
+        </div>
+        <div class="tw">
+          <table class="pers-table">
+            <thead>
+              <tr><th rowspan="2" style="width:48px">Tgl</th><th rowspan="2" style="min-width:150px">Keterangan</th><th colspan="4">Harta</th><th colspan="2">Kewajiban &amp; Modal</th><th rowspan="2" style="width:70px">Cek</th><th rowspan="2" style="width:34px"></th></tr>
+              <tr><th>Kas</th><th>Piutang</th><th>Perlengkapan</th><th>Peralatan</th><th>Utang</th><th>Modal</th></tr>
+            </thead>
+            <tbody id="pers-body"></tbody>
+          </table>
+        </div>
+        <div class="status" id="pers-status" style="margin-top:10px"></div>
+      </div>
+      <div class="card card-red" id="pers-fb-card" hidden>
+        <h2>Catatan Pemeriksa ✎</h2>
+        <div id="pers-fb" class="fb"></div>
+      </div>
+    </section>
+
+    <!-- JURNAL -->
+    <section class="tab" id="tab-jurnal" hidden>
+      <div class="soal-strip-host"></div>
+      <div class="card">
+        <div class="chips" id="j-jenis">
+          <button class="chip on" data-j="umum">Jurnal Umum</button>
+          <button class="chip" data-j="penyesuaian">Penyesuaian</button>
+          <button class="chip" data-j="penutup">Penutup</button>
+          <button class="chip" data-j="pembalik">Pembalik</button>
+        </div>
+        <p class="hint" id="j-hint"></p>
+      </div>
+      <div class="card" id="j-form-card">
+        <h3 id="j-form-title">Jurnal baru</h3>
+        <div class="row">
+          <div style="width:90px"><label class="lbl" for="j-tgl">Tanggal</label><input id="j-tgl" class="in" placeholder="1"></div>
+          <div class="grow"><label class="lbl" for="j-ket">Keterangan transaksi</label><input id="j-ket" class="in" placeholder="Pemilik menyetor modal tunai"></div>
+        </div>
+        <div id="j-lines" style="margin-top:8px"></div>
+        <div class="row" style="margin-top:10px">
+          <button id="j-addline" class="btn btn-ghost btn-sm">+ Baris akun</button>
+          <button id="j-auto-tutup" class="btn btn-gold btn-sm" hidden>⚙ Buat Jurnal Penutup otomatis</button>
+        </div>
+        <div class="status" id="j-status" style="margin-top:10px"></div>
+        <div class="row" style="margin-top:10px">
+          <button id="j-save" class="btn btn-green grow">Simpan Jurnal</button>
+          <button id="j-cancel" class="btn btn-ghost" hidden>Batal</button>
+        </div>
+      </div>
+      <div id="j-list"></div>
+      <div class="card" id="j-submit-card" hidden>
+        <div class="row">
+          <button id="j-submit" class="btn btn-red">Submit &amp; Periksa Jurnal</button>
+        </div>
+        <p class="hint">Jurnal umum dan penyesuaian dibandingkan dengan kunci soal. Urutan jurnal tidak masalah.</p>
+      </div>
+      <div class="card card-red" id="j-fb-card" hidden>
+        <h2>Catatan Pemeriksa ✎</h2>
+        <div id="j-fb" class="fb"></div>
+      </div>
+    </section>
+
+    <!-- BUKU BESAR -->
+    <section class="tab" id="tab-besar" hidden>
+      <div class="card">
+        <h2>Buku Besar</h2>
+        <p class="muted">Terisi otomatis (posting) dari semua jurnal yang kamu simpan.</p>
+        <div class="row" style="margin-top:8px">
+          <div class="grow"><label class="lbl" for="b-akun">Akun</label><select id="b-akun" class="in"></select></div>
+          <div class="grow"><label class="lbl" for="b-scope">Tahap</label>
+            <select id="b-scope" class="in">
+              <option value="semua">Semua jurnal</option>
+              <option value="awal">Jurnal umum saja</option>
+              <option value="sesuai">Sampai penyesuaian</option>
+              <option value="tutup">Sampai penutupan</option>
+            </select></div>
+          <div class="grow"><label class="lbl" for="b-fmt">Bentuk</label>
+            <select id="b-fmt" class="in"><option value="saldo">Tabel + saldo</option><option value="t">Akun T</option></select></div>
+        </div>
+      </div>
+      <div id="b-out"></div>
+    </section>
+
+    <!-- NERACA SALDO -->
+    <section class="tab" id="tab-saldo" hidden>
+      <div class="card">
+        <h2>Neraca Saldo</h2>
+        <div style="margin-top:8px"><label class="lbl" for="s-scope">Tahap</label>
+          <select id="s-scope" class="in">
+            <option value="awal">Sebelum penyesuaian</option>
+            <option value="sesuai">Setelah penyesuaian</option>
+            <option value="tutup">Setelah penutupan</option>
+          </select></div>
+      </div>
+      <div id="s-out"></div>
+    </section>
+
+    <!-- LAJUR -->
+    <section class="tab" id="tab-lajur" hidden>
+      <div class="card">
+        <h2>Neraca Lajur (Kertas Kerja)</h2>
+        <p class="muted">10 kolom: neraca saldo, penyesuaian, neraca saldo disesuaikan, laba rugi, dan neraca. Geser ke samping untuk melihat semua kolom.</p>
+      </div>
+      <div id="l-out"></div>
+    </section>
+
+    <!-- LAPORAN -->
+    <section class="tab" id="tab-laporan" hidden>
+      <div class="card">
+        <h2>Laporan Keuangan</h2>
+        <div class="chips" id="r-chips" style="margin-top:8px">
+          <button class="chip on" data-r="lr">Laba Rugi</button>
+          <button class="chip" data-r="pm">Perubahan Modal</button>
+          <button class="chip" data-r="nr">Neraca</button>
+          <button class="chip" data-r="ak">Arus Kas</button>
+        </div>
+      </div>
+      <div id="r-out"></div>
+      <div class="row"><button id="r-copy" class="btn btn-ghost btn-sm">Salin sebagai teks</button></div>
+    </section>
+
+    <!-- AKUN -->
+    <section class="tab" id="tab-akun" hidden>
+      <div class="card">
+        <h2>Bagan Akun</h2>
+        <p class="muted">Daftar akun yang dipakai di jurnal. Kamu bisa menambah akun sendiri.</p>
+      </div>
+      <div class="card">
+        <h3>Tambah akun</h3>
+        <div class="row">
+          <div style="width:90px"><label class="lbl" for="a-kode">Kode</label><input id="a-kode" class="in" inputmode="numeric" placeholder="519"></div>
+          <div class="grow"><label class="lbl" for="a-nama">Nama akun</label><input id="a-nama" class="in" placeholder="Beban Transportasi"></div>
+        </div>
+        <div class="row">
+          <div class="grow"><label class="lbl" for="a-kel">Kelompok</label>
+            <select id="a-kel" class="in"><option value="aset">Aset</option><option value="kewajiban">Kewajiban</option><option value="modal">Ekuitas</option><option value="pendapatan">Pendapatan</option><option value="beban">Beban</option></select></div>
+          <div class="grow"><label class="lbl" for="a-sub">Sub-kelompok</label><select id="a-sub" class="in"></select></div>
+          <div style="width:130px"><label class="lbl" for="a-normal">Saldo normal</label>
+            <select id="a-normal" class="in"><option value="D">Debit</option><option value="K">Kredit</option></select></div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <button id="a-add" class="btn btn-green">Tambah Akun</button>
+          <button id="a-reset" class="btn btn-ghost btn-sm">Kembalikan bagan akun standar</button>
+        </div>
+      </div>
+      <div id="a-list"></div>
+    </section>
+  </main>
+
+  <footer class="foot" id="foot-ai"></footer>
+</div>
+
+<div class="overlay" id="ov" hidden>
+  <div class="modal">
+    <div class="modal-h"><h2>Pengaturan</h2><button id="ov-close" class="btn-icon" aria-label="Tutup">✕</button></div>
+
+    <h3 style="margin-top:6px">AI</h3>
+    <label class="lbl" for="st-prov">Provider</label><select id="st-prov" class="in"></select>
+    <label class="lbl" for="st-model">Model</label>
+    <input id="st-model" class="in" list="st-models" autocomplete="off">
+    <datalist id="st-models"></datalist>
+    <div class="row" style="margin-top:6px"><button id="st-fetch" class="btn btn-ghost btn-sm">Ambil model terbaru dari provider</button></div>
+    <p class="hint" id="st-fetch-msg"></p>
+    <div id="st-base-wrap" hidden>
+      <label class="lbl" for="st-base">Base URL (format OpenAI-compatible)</label>
+      <input id="st-base" class="in" placeholder="https://api.contoh.com/v1">
+    </div>
+    <label class="lbl" for="st-key">API Key</label>
+    <input id="st-key" type="password" class="in" placeholder="Tempel API key" autocomplete="off">
+    <p class="hint">Key hanya disimpan di perangkat ini dan langsung dikirim ke provider yang kamu pilih.</p>
+    <label class="lbl" for="st-tingkat">Tingkat kesulitan soal</label>
+    <select id="st-tingkat" class="in"><option value="pemula">Pemula</option><option value="menengah">Menengah</option><option value="sulit">Sulit (dengan penyesuaian)</option></select>
+    <button id="st-save" class="btn btn-gold btn-full" style="margin-top:16px">Simpan Pengaturan</button>
+
+    <h3 style="margin-top:22px">Cadangan data</h3>
+    <div class="row">
+      <button id="bk-export" class="btn btn-ghost btn-sm">Tampilkan cadangan</button>
+      <button id="bk-import" class="btn btn-ghost btn-sm">Pulihkan dari teks</button>
+      <button id="bk-reset" class="btn btn-ghost btn-sm" style="color:var(--red);border-color:var(--red)">Hapus semua data</button>
+    </div>
+    <textarea id="bk-text" class="in" rows="5" style="margin-top:8px;font-family:var(--f-mono);font-size:.72rem" placeholder="Teks cadangan muncul di sini. Tempel teks cadangan lalu tekan Pulihkan."></textarea>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+'use strict';
+/* =====================================================================
+   Buku Kerja Akuntansi — inti: data, bagan akun, mesin pembukuan
+   ===================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const num = v => { const n = parseInt(String(v == null ? '' : v).replace(/[^\d]/g, ''), 10); return isNaN(n) ? 0 : n; };
+const fmt = n => { n = Math.round(Number(n) || 0); return (n < 0 ? '-' : '') + String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+const rp = n => (n < 0 ? '(' : '') + 'Rp ' + fmt(Math.abs(n)) + (n < 0 ? ')' : '');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
+
+const PCOLS = ['kas', 'piutang', 'perlengkapan', 'peralatan', 'utang', 'modal'];
+const PLABEL = { kas: 'Kas', piutang: 'Piutang', perlengkapan: 'Perlengkapan', peralatan: 'Peralatan', utang: 'Utang', modal: 'Modal' };
+const JENIS = { umum: 'Jurnal Umum', penyesuaian: 'Jurnal Penyesuaian', penutup: 'Jurnal Penutup', pembalik: 'Jurnal Pembalik' };
+const REFP = { umum: 'JU', penyesuaian: 'JP', penutup: 'JT', pembalik: 'JB' };
+const SCOPES = {
+  awal: ['umum'],
+  sesuai: ['umum', 'penyesuaian'],
+  tutup: ['umum', 'penyesuaian', 'penutup'],
+  semua: ['umum', 'penyesuaian', 'penutup', 'pembalik']
+};
+const KELOMPOK = { aset: 'Aset', kewajiban: 'Kewajiban', modal: 'Ekuitas', pendapatan: 'Pendapatan', beban: 'Beban' };
+const SUBS = {
+  aset: ['Aset Lancar', 'Aset Tetap'],
+  kewajiban: ['Kewajiban Lancar', 'Kewajiban Jangka Panjang'],
+  modal: ['Ekuitas'], pendapatan: ['Pendapatan'], beban: ['Beban']
+};
+
+const DEFAULT_COA = [
+  ['111', 'Kas', 'aset', 'D', 'Aset Lancar'],
+  ['112', 'Piutang Usaha', 'aset', 'D', 'Aset Lancar'],
+  ['113', 'Perlengkapan', 'aset', 'D', 'Aset Lancar'],
+  ['114', 'Sewa Dibayar Dimuka', 'aset', 'D', 'Aset Lancar'],
+  ['115', 'Asuransi Dibayar Dimuka', 'aset', 'D', 'Aset Lancar'],
+  ['116', 'Persediaan Barang Dagang', 'aset', 'D', 'Aset Lancar'],
+  ['121', 'Peralatan', 'aset', 'D', 'Aset Tetap'],
+  ['122', 'Akumulasi Penyusutan Peralatan', 'aset', 'K', 'Aset Tetap'],
+  ['123', 'Kendaraan', 'aset', 'D', 'Aset Tetap'],
+  ['124', 'Akumulasi Penyusutan Kendaraan', 'aset', 'K', 'Aset Tetap'],
+  ['211', 'Utang Usaha', 'kewajiban', 'K', 'Kewajiban Lancar'],
+  ['212', 'Utang Gaji', 'kewajiban', 'K', 'Kewajiban Lancar'],
+  ['213', 'Pendapatan Diterima Dimuka', 'kewajiban', 'K', 'Kewajiban Lancar'],
+  ['214', 'Utang Bank', 'kewajiban', 'K', 'Kewajiban Jangka Panjang'],
+  ['311', 'Modal', 'modal', 'K', 'Ekuitas'],
+  ['312', 'Prive', 'modal', 'D', 'Ekuitas'],
+  ['313', 'Ikhtisar Laba Rugi', 'modal', 'K', 'Ekuitas'],
+  ['411', 'Pendapatan Jasa', 'pendapatan', 'K', 'Pendapatan'],
+  ['412', 'Penjualan', 'pendapatan', 'K', 'Pendapatan'],
+  ['511', 'Beban Gaji', 'beban', 'D', 'Beban'],
+  ['512', 'Beban Listrik dan Air', 'beban', 'D', 'Beban'],
+  ['513', 'Beban Sewa', 'beban', 'D', 'Beban'],
+  ['514', 'Beban Perlengkapan', 'beban', 'D', 'Beban'],
+  ['515', 'Beban Penyusutan Peralatan', 'beban', 'D', 'Beban'],
+  ['516', 'Beban Asuransi', 'beban', 'D', 'Beban'],
+  ['517', 'Beban Penyusutan Kendaraan', 'beban', 'D', 'Beban'],
+  ['518', 'Beban Lain-lain', 'beban', 'D', 'Beban']
+];
+const makeCOA = () => DEFAULT_COA.map(a => ({ kode: a[0], nama: a[1], kelompok: a[2], normal: a[3], sub: a[4] }));
+
+const PROVIDERS = {
+  gemini: { label: 'Google Gemini', type: 'gemini', baseUrl: 'https://generativelanguage.googleapis.com/v1beta', model: 'gemini-3.8-flash' },
+  grok: { label: 'Grok (xAI)', type: 'openai', baseUrl: 'https://api.x.ai/v1', model: 'grok-4' },
+  openai: { label: 'OpenAI', type: 'openai', baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o-mini' },
+  claude: { label: 'Claude (Anthropic)', type: 'anthropic', baseUrl: 'https://api.anthropic.com/v1', model: 'claude-sonnet-5-5' },
+  deepseek: { label: 'DeepSeek', type: 'openai', baseUrl: 'https://api.deepseek.com/v1', model: 'deepseek-chat' },
+  groq: { label: 'Groq', type: 'openai', baseUrl: 'https://api.groq.com/openai/v1', model: 'llama-3.3-70b-versatile' },
+  openrouter: { label: 'OpenRouter', type: 'openai', baseUrl: 'https://openrouter.ai/api/v1', model: 'openai/gpt-4o-mini' },
+  custom: { label: 'Custom (OpenAI-compatible)', type: 'openai', baseUrl: '', model: '' }
+};
+
+/* ---------------- state ---------------- */
+const SKEY = 'bukukerja_v2';
+let S = null;
+
+function freshState() {
+  return {
+    v: 2, usaha: 'Toko Saya', periode: '',
+    coa: makeCOA(),
+    jurnal: [],
+    persamaan: [emptyPers('1', 'Setoran modal awal')],
+    soal: null,
+    hasil: {},
+    set: { provider: 'gemini', model: '', baseUrl: '', tingkat: 'menengah', keys: {} }
+  };
+}
+function emptyPers(tgl, ket) { const r = { tgl: tgl || '', ket: ket || '' }; PCOLS.forEach(c => r[c] = 0); return r; }
+
+function loadState() {
+  S = freshState();
+  try {
+    const raw = localStorage.getItem(SKEY);
+    if (raw) {
+      const p = JSON.parse(raw);
+      S = Object.assign(S, p);
+      S.set = Object.assign(freshState().set, p.set || {});
+      S.hasil = p.hasil || {};
+    } else {
+      const old = localStorage.getItem('akun_state_v1'); // migrasi versi 1
+      if (old) {
+        const o = JSON.parse(old);
+        if (Array.isArray(o.rows) && o.rows.length) S.persamaan = o.rows.map(r => Object.assign(emptyPers(), r));
+        if (o.settings) S.set = Object.assign(S.set, { provider: o.settings.provider || 'gemini', baseUrl: o.settings.baseUrl || '', tingkat: o.settings.tingkat || 'menengah', keys: o.settings.keys || {} });
+      }
+    }
+  } catch (e) { /* data rusak: pakai state baru */ }
+  // gemini 2.x sudah dimatikan Google, otomatis naik ke default terbaru
+  if (S.set.provider === 'gemini' && /^gemini-(1|2)\./.test(S.set.model || '')) S.set.model = '';
+  if (!S.coa || !S.coa.length) S.coa = makeCOA();
+  if (!S.persamaan || !S.persamaan.length) S.persamaan = [emptyPers()];
+}
+function save() { try { localStorage.setItem(SKEY, JSON.stringify(S)); } catch (e) { /* storage penuh/diblokir */ } }
+
+/* ---------------- mesin pembukuan ---------------- */
+const acc = kode => S.coa.find(a => a.kode === kode);
+const accName = kode => { const a = acc(kode); return a ? a.nama : kode; };
+const refOf = j => { const same = S.jurnal.filter(x => x.jenis === j.jenis); return REFP[j.jenis] + '-' + (same.indexOf(j) + 1); };
+const entries = scope => S.jurnal.filter(j => SCOPES[scope].includes(j.jenis));
+
+function sums(scope) {
+  const m = {};
+  entries(scope).forEach(j => j.lines.forEach(l => {
+    const o = m[l.k] || (m[l.k] = { d: 0, c: 0 });
+    o.d += +l.d || 0; o.c += +l.c || 0;
+  }));
+  return m;
+}
+const netDebit = o => (o ? o.d - o.c : 0);
+// saldo menurut sisi normal akun (negatif bila berlawanan)
+const saldoNormal = (a, o) => (!o ? 0 : (a.normal === 'D' ? o.d - o.c : o.c - o.d));
+// nilai berteks laporan: aset = d-c, lainnya = c-d (akun kontra otomatis negatif)
+const signedVal = (a, o) => (!o ? 0 : (a.kelompok === 'aset' ? o.d - o.c : o.c - o.d));
+
+function ledger(kode, scope) {
+  const a = acc(kode); let saldo = 0; const rows = [];
+  entries(scope).forEach(j => j.lines.forEach(l => {
+    if (l.k !== kode) return;
+    const d = +l.d || 0, c = +l.c || 0;
+    saldo += a.normal === 'D' ? d - c : c - d;
+    rows.push({ tgl: j.tgl, ket: j.ket, ref: refOf(j), d, c, saldo });
+  }));
+  return rows;
+}
+
+function neracaSaldo(scope) {
+  const sm = sums(scope), rows = []; let td = 0, tc = 0;
+  S.coa.forEach(a => {
+    const o = sm[a.kode]; if (!o) return;
+    const s = o.d - o.c; if (s === 0 && o.d === 0) return;
+    const d = s > 0 ? s : 0, c = s < 0 ? -s : 0;
+    if (!d && !c) return;
+    rows.push({ a, d, c }); td += d; tc += c;
+  });
+  return { rows, td, tc, ok: td === tc };
+}
+
+function lajur() {
+  const ns = sums('awal'), aj = {}, sa = sums('sesuai');
+  S.jurnal.filter(j => j.jenis === 'penyesuaian').forEach(j => j.lines.forEach(l => {
+    const o = aj[l.k] || (aj[l.k] = { d: 0, c: 0 }); o.d += +l.d || 0; o.c += +l.c || 0;
+  }));
+  const rows = [], T = { nsd: 0, nsc: 0, ajd: 0, ajc: 0, sd: 0, sc: 0, lrd: 0, lrc: 0, nrd: 0, nrc: 0 };
+  S.coa.forEach(a => {
+    if (!sa[a.kode] && !ns[a.kode] && !aj[a.kode]) return;
+    const n = netDebit(ns[a.kode]), s = netDebit(sa[a.kode]);
+    const r = { a, nsd: n > 0 ? n : 0, nsc: n < 0 ? -n : 0, ajd: (aj[a.kode] || {}).d || 0, ajc: (aj[a.kode] || {}).c || 0,
+      sd: s > 0 ? s : 0, sc: s < 0 ? -s : 0, lrd: 0, lrc: 0, nrd: 0, nrc: 0 };
+    if (a.kelompok === 'pendapatan' || a.kelompok === 'beban') { r.lrd = r.sd; r.lrc = r.sc; } else { r.nrd = r.sd; r.nrc = r.sc; }
+    Object.keys(T).forEach(k => T[k] += r[k]);
+    rows.push(r);
+  });
+  const selisih = T.lrc - T.lrd; // >0 laba
+  const adj = { lrd: 0, lrc: 0, nrd: 0, nrc: 0 };
+  if (selisih > 0) { adj.lrd = selisih; adj.nrc = selisih; } else if (selisih < 0) { adj.lrc = -selisih; adj.nrd = -selisih; }
+  const Z = { lrd: T.lrd + adj.lrd, lrc: T.lrc + adj.lrc, nrd: T.nrd + adj.nrd, nrc: T.nrc + adj.nrc };
+  return { rows, T, adj, Z, selisih };
+}
+
+/* ---------------- laporan keuangan ---------------- */
+function labaRugiData() {
+  const sm = sums('sesuai');
+  const pick = kel => S.coa.filter(a => a.kelompok === kel && sm[a.kode]).map(a => ({ a, v: saldoNormal(a, sm[a.kode]) })).filter(x => x.v !== 0);
+  const pend = pick('pendapatan'), beb = pick('beban');
+  const tp = pend.reduce((s, x) => s + x.v, 0), tb = beb.reduce((s, x) => s + x.v, 0);
+  return { pend, beb, tp, tb, laba: tp - tb };
+}
+
+function buildLaporan(name) {
+  const L = [], sm = sums('sesuai');
+  const lr = labaRugiData();
+  const ket = (S.periode ? 'Periode ' + S.periode : '');
+  const head = t => ({ type: 'head', label: t });
+  const row = (label, v, ind) => ({ type: 'row', label, v, ind: ind || 0 });
+  const tot = (label, v) => ({ type: 'tot', label, v });
+  const title = (t) => ({ title: t, sub: (S.usaha || '') + (ket ? ' — ' + ket : '') });
+
+  if (name === 'lr') {
+    L.push(head('Pendapatan'));
+    lr.pend.forEach(x => L.push(row(x.a.nama, x.v, 1)));
+    L.push(tot('Total Pendapatan', lr.tp));
+    L.push(head('Beban'));
+    lr.beb.forEach(x => L.push(row(x.a.nama, x.v, 1)));
+    L.push(tot('Total Beban', lr.tb));
+    L.push(tot(lr.laba >= 0 ? 'Laba Bersih' : 'Rugi Bersih', lr.laba));
+    return Object.assign(title('Laporan Laba Rugi'), { lines: L, ok: true });
+  }
+  const modalRow = acc('311') ? saldoNormal(acc('311'), sm['311']) : 0;
+  const prive = acc('312') ? saldoNormal(acc('312'), sm['312']) : 0;
+  const modalAkhir = modalRow + lr.laba - prive;
+  if (name === 'pm') {
+    L.push(row('Modal awal', modalRow, 0));
+    L.push(row(lr.laba >= 0 ? 'Laba bersih' : 'Rugi bersih', lr.laba, 1));
+    L.push(row('Prive', -prive, 1));
+    L.push(tot('Modal akhir', modalAkhir));
+    return Object.assign(title('Laporan Perubahan Modal'), { lines: L, ok: true });
+  }
+  if (name === 'nr') {
+    const grp = (kel) => {
+      const subs = SUBS[kel]; let total = 0;
+      subs.forEach(sb => {
+        const items = S.coa.filter(a => a.kelompok === kel && a.sub === sb && sm[a.kode]).map(a => ({ a, v: signedVal(a, sm[a.kode]) })).filter(x => x.v !== 0);
+        if (!items.length) return;
+        L.push(row(sb, null, 0));
+        items.forEach(x => L.push(row(x.a.nama, x.v, 1)));
+        const st = items.reduce((s, x) => s + x.v, 0); total += st;
+        L.push({ type: 'sub', label: 'Jumlah ' + sb, v: st });
+      });
+      return total;
+    };
+    L.push(head('ASET'));
+    const ta = grp('aset');
+    L.push(tot('Total Aset', ta));
+    L.push(head('KEWAJIBAN'));
+    const tk = grp('kewajiban');
+    L.push(tot('Total Kewajiban', tk));
+    L.push(head('EKUITAS'));
+    L.push(row('Modal akhir', modalAkhir, 1));
+    L.push(tot('Total Ekuitas', modalAkhir));
+    L.push(tot('Total Kewajiban + Ekuitas', tk + modalAkhir));
+    return Object.assign(title('Neraca'), { lines: L, ok: ta === tk + modalAkhir, ta, tke: tk + modalAkhir });
+  }
+  // arus kas (metode langsung sederhana, hanya dari jurnal umum)
+  const grupOf = j => {
+    const lain = j.lines.filter(l => l.k !== '111');
+    const pr = lain.map(l => acc(l.k)).filter(Boolean);
+    if (pr.some(a => a.kelompok === 'aset' && a.sub === 'Aset Tetap')) return 'inv';
+    if (pr.some(a => ['311', '312', '214'].includes(a.kode))) return 'pen';
+    return 'ops';
+  };
+  const G = { ops: [], inv: [], pen: [] };
+  S.jurnal.filter(j => j.jenis === 'umum').forEach(j => {
+    const k = j.lines.filter(l => l.k === '111').reduce((s, l) => s + (+l.d || 0) - (+l.c || 0), 0);
+    if (k) G[grupOf(j)].push({ ket: j.ket || '(tanpa keterangan)', v: k });
+  });
+  const sumG = g => G[g].reduce((s, x) => s + x.v, 0);
+  [['ops', 'Aktivitas Operasi'], ['inv', 'Aktivitas Investasi'], ['pen', 'Aktivitas Pendanaan']].forEach(([g, lab]) => {
+    L.push(head(lab));
+    if (!G[g].length) L.push(row('(tidak ada)', null, 1));
+    G[g].forEach(x => L.push(row(x.ket, x.v, 1)));
+    L.push(tot('Kas bersih dari ' + lab.toLowerCase(), sumG(g)));
+  });
+  const naik = sumG('ops') + sumG('inv') + sumG('pen');
+  const kasAkhir = acc('111') ? saldoNormal(acc('111'), sm['111']) : 0;
+  L.push(tot('Kenaikan (penurunan) kas', naik));
+  L.push(row('Saldo kas awal', 0, 1));
+  L.push(tot('Saldo kas akhir', naik));
+  return Object.assign(title('Laporan Arus Kas'), { lines: L, ok: naik === kasAkhir, naik, kasAkhir });
+}
+
+function reportToText(r) {
+  const out = [r.title, r.sub, ''];
+  r.lines.forEach(l => {
+    const pad = '  '.repeat(l.ind || 0);
+    if (l.type === 'head') out.push(l.label);
+    else out.push(pad + l.label + (l.v == null ? '' : ' : ' + rp(l.v)));
+  });
+  return out.join('\n');
+}
+
+/* ---------------- soal & kunci ---------------- */
+function normLines(jurnal) { return (jurnal || []).map(l => ({ k: String(l.akun != null ? l.akun : l.k), d: num(l.d), c: num(l.k != null && l.akun != null ? l.k : l.c) })); }
+function toKeyEntries(list, jenis) {
+  return (list || []).map(t => ({ tgl: String(t.tgl), ket: t.uraian, jenis, lines: normLines(t.jurnal) }));
+}
+function colOf(a) {
+  if (a.kode === '111') return 'kas';
+  if (a.kode === '112') return 'piutang';
+  if (a.kelompok === 'aset') return a.sub === 'Aset Tetap' ? 'peralatan' : 'perlengkapan';
+  if (a.kelompok === 'kewajiban') return 'utang';
+  return 'modal';
+}
+function keyPersamaan(soal) {
+  const run = {}; PCOLS.forEach(c => run[c] = 0);
+  return soal.transaksi.map(t => {
+    normLines(t.jurnal).forEach(l => {
+      const a = acc(l.k); if (!a) return;
+      const col = colOf(a);
+      run[col] += a.kelompok === 'aset' ? l.d - l.c : l.c - l.d;
+      if (a.kelompok === 'pendapatan' || a.kelompok === 'beban' || a.kelompok === 'modal') { /* sudah di kolom modal */ }
+    });
+    const r = {}; PCOLS.forEach(c => r[c] = run[c]); r.tgl = String(t.tgl); r.ket = t.uraian; return r;
+  });
+}
+function sig(lines) {
+  const m = {};
+  lines.forEach(l => { const o = m[l.k] || (m[l.k] = { d: 0, c: 0 }); o.d += +l.d || 0; o.c += +l.c || 0; });
+  return Object.keys(m).filter(k => m[k].d || m[k].c).sort().map(k => k + ':' + m[k].d + ':' + m[k].c).join('|');
+}
+function matchEntries(user, keyList) {
+  const used = new Set(), userOk = user.map(() => false);
+  user.forEach((u, ui) => {
+    const s = sig(u.lines);
+    const ki = keyList.findIndex((k, i) => !used.has(i) && sig(k.lines) === s);
+    if (ki >= 0) { used.add(ki); userOk[ui] = true; }
+  });
+  return { userOk, missing: keyList.map((k, i) => i).filter(i => !used.has(i)) };
+}
+
+function validateSoal(s) {
+  if (!s || !Array.isArray(s.transaksi) || !s.transaksi.length) throw new Error('Soal tidak punya transaksi.');
+  const chk = (list, nama) => (list || []).forEach((t, i) => {
+    const ls = normLines(t.jurnal);
+    if (ls.length < 2) throw new Error(nama + ' ' + (i + 1) + ': jurnal kurang dari 2 baris.');
+    let d = 0, c = 0;
+    ls.forEach(l => { if (!acc(l.k)) throw new Error(nama + ' ' + (i + 1) + ': akun ' + l.k + ' tidak ada di bagan akun.'); d += l.d; c += l.c; });
+    if (d !== c || d <= 0) throw new Error(nama + ' ' + (i + 1) + ': debit dan kredit tidak seimbang.');
+  });
+  chk(s.transaksi, 'Transaksi'); chk(s.penyesuaian, 'Penyesuaian');
+  return s;
+}
+
+const SOAL_CONTOH = {
+  judul: 'Jasa Servis Laptop — September 2026', usaha: 'Servis Laptop Imran',
+  transaksi: [
+    { tgl: '1', uraian: 'Pemilik menyetor modal tunai Rp10.000.000', jurnal: [{ akun: '111', d: 10000000, k: 0 }, { akun: '311', d: 0, k: 10000000 }] },
+    { tgl: '3', uraian: 'Membeli perlengkapan secara tunai Rp2.000.000', jurnal: [{ akun: '113', d: 2000000, k: 0 }, { akun: '111', d: 0, k: 2000000 }] },
+    { tgl: '5', uraian: 'Menerima pendapatan jasa secara tunai Rp4.000.000', jurnal: [{ akun: '111', d: 4000000, k: 0 }, { akun: '411', d: 0, k: 4000000 }] },
+    { tgl: '8', uraian: 'Membeli peralatan secara kredit Rp3.000.000', jurnal: [{ akun: '121', d: 3000000, k: 0 }, { akun: '211', d: 0, k: 3000000 }] },
+    { tgl: '10', uraian: 'Menerima pendapatan jasa Rp6.000.000, sebagian tunai Rp2.000.000 dan sisanya piutang', jurnal: [{ akun: '111', d: 2000000, k: 0 }, { akun: '112', d: 4000000, k: 0 }, { akun: '411', d: 0, k: 6000000 }] },
+    { tgl: '15', uraian: 'Membayar listrik dan air Rp500.000', jurnal: [{ akun: '512', d: 500000, k: 0 }, { akun: '111', d: 0, k: 500000 }] },
+    { tgl: '18', uraian: 'Membayar sebagian utang usaha Rp1.000.000', jurnal: [{ akun: '211', d: 1000000, k: 0 }, { akun: '111', d: 0, k: 1000000 }] },
+    { tgl: '25', uraian: 'Pemilik mengambil kas untuk keperluan pribadi Rp1.000.000', jurnal: [{ akun: '312', d: 1000000, k: 0 }, { akun: '111', d: 0, k: 1000000 }] },
+    { tgl: '30', uraian: 'Membayar gaji karyawan Rp1.500.000', jurnal: [{ akun: '511', d: 1500000, k: 0 }, { akun: '111', d: 0, k: 1500000 }] }
+  ],
+  penyesuaian: [
+    { tgl: '30', uraian: 'Perlengkapan yang terpakai selama September Rp800.000', jurnal: [{ akun: '514', d: 800000, k: 0 }, { akun: '113', d: 0, k: 800000 }] },
+    { tgl: '30', uraian: 'Penyusutan peralatan bulan September Rp250.000', jurnal: [{ akun: '515', d: 250000, k: 0 }, { akun: '122', d: 0, k: 250000 }] },
+    { tgl: '30', uraian: 'Gaji karyawan yang belum dibayar Rp300.000', jurnal: [{ akun: '511', d: 300000, k: 0 }, { akun: '212', d: 0, k: 300000 }] }
+  ]
+};
+
+/* =====================================================================
+   AI multi-provider — otomatis memilih format API sesuai provider
+   ===================================================================== */
+function curProv() { return PROVIDERS[S.set.provider] || PROVIDERS.gemini; }
+function curModel() { return S.set.model || curProv().model; }
+function curKey() { return (S.set.keys || {})[S.set.provider] || ''; }
+function baseUrl() { return (S.set.provider === 'custom' ? S.set.baseUrl : curProv().baseUrl).replace(/\/$/, ''); }
+
+async function errText(res) {
+  try { const j = await res.json(); return (j.error && (j.error.message || j.error)) || j.message || ('HTTP ' + res.status); }
+  catch (e) { return 'HTTP ' + res.status; }
+}
+
+function verOf(n) { const m = n.match(/^gemini-(\d+)(?:\.(\d+))?/); return m ? [+m[1], +(m[2] || 0)] : [0, 0]; }
+function pickGemini(names) {
+  const c = names.map(n => n.replace(/^models\//, '')).filter(n => /^gemini-\d+(\.\d+)?-flash(-preview[\w.-]*)?$/.test(n));
+  c.sort((a, b) => { const A = verOf(a), B = verOf(b); return (B[0] - A[0]) || (B[1] - A[1]) || ((/preview/.test(a) ? 1 : 0) - (/preview/.test(b) ? 1 : 0)) || a.length - b.length; });
+  return c[0] || null;
+}
+
+async function fetchModels() {
+  const key = curKey(); if (!key) throw new Error('Isi API key dulu.');
+  const p = curProv();
+  if (p.type === 'gemini') {
+    const res = await fetch(baseUrl() + '/models?pageSize=200', { headers: { 'x-goog-api-key': key } });
+    if (!res.ok) throw new Error(await errText(res));
+    const j = await res.json();
+    const ok = (j.models || []).filter(m => !m.supportedGenerationMethods || m.supportedGenerationMethods.includes('generateContent')).map(m => m.name.replace(/^models\//, ''));
+    return { list: ok, best: pickGemini(ok) };
+  }
+  if (p.type === 'anthropic') {
+    const res = await fetch(baseUrl() + '/models', { headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' } });
+    if (!res.ok) throw new Error(await errText(res));
+    const j = await res.json(); const ids = (j.data || []).map(m => m.id);
+    return { list: ids, best: ids[0] || null };
+  }
+  const res = await fetch(baseUrl() + '/models', { headers: { Authorization: 'Bearer ' + key } });
+  if (!res.ok) throw new Error(await errText(res));
+  const j = await res.json(); const ids = (j.data || []).map(m => m.id);
+  return { list: ids, best: null };
+}
+
+async function callAI(system, user, opts) {
+  opts = opts || {};
+  const key = curKey(); const p = curProv();
+  if (!key) throw new Error('API key ' + p.label + ' belum diisi. Buka ⚙ Pengaturan dulu.');
+  const model = curModel();
+
+  if (p.type === 'gemini') {
+    const go = async m => {
+      const body = { systemInstruction: { parts: [{ text: system }] }, contents: [{ role: 'user', parts: [{ text: user }] }] };
+      if (opts.json) body.generationConfig = { responseMimeType: 'application/json' };
+      return fetch(baseUrl() + '/models/' + encodeURIComponent(m) + ':generateContent', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key }, body: JSON.stringify(body)
+      });
+    };
+    let res = await go(model);
+    if (res.status === 404) { // model sudah dipensiunkan → cari yang terbaru otomatis
+      try {
+        const f = await fetchModels();
+        if (f.best && f.best !== model) { S.set.model = f.best; save(); res = await go(f.best); }
+      } catch (e) { /* lanjut ke error asli */ }
+    }
+    if (!res.ok) throw new Error(await errText(res));
+    const j = await res.json();
+    const t = (((j.candidates || [])[0] || {}).content || {}).parts;
+    const out = t ? t.map(x => x.text || '').join('') : '';
+    if (!out) throw new Error('AI tidak mengembalikan jawaban.');
+    return out;
+  }
+  if (p.type === 'anthropic') {
+    const res = await fetch(baseUrl() + '/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model, max_tokens: 4000, system, messages: [{ role: 'user', content: user }] })
+    });
+    if (!res.ok) throw new Error(await errText(res));
+    const j = await res.json();
+    const out = (j.content || []).map(b => b.text || '').join('');
+    if (!out) throw new Error('AI tidak mengembalikan jawaban.');
+    return out;
+  }
+  const body = { model, messages: [{ role: 'system', content: system }, { role: 'user', content: user }] };
+  if (opts.json && ['openai', 'grok', 'deepseek', 'groq'].includes(S.set.provider)) body.response_format = { type: 'json_object' };
+  if (!baseUrl()) throw new Error('Base URL custom belum diisi.');
+  const res = await fetch(baseUrl() + '/chat/completions', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + key }, body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error(await errText(res));
+  const j = await res.json();
+  const out = ((((j.choices || [])[0] || {}).message) || {}).content;
+  if (!out) throw new Error('AI tidak mengembalikan jawaban.');
+  return out;
+}
+
+function parseJSON(t) {
+  t = String(t).trim().replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
+  const a = t.indexOf('{'), b = t.lastIndexOf('}');
+  if (a < 0 || b < 0) throw new Error('Jawaban AI bukan JSON.');
+  return JSON.parse(t.slice(a, b + 1));
+}
+
+const USAHA = ['servis laptop', 'salon kecantikan', 'laundry kiloan', 'bimbingan belajar', 'warung kopi', 'toko kelontong', 'studio foto', 'bengkel motor', 'jasa desain grafis', 'kursus mengemudi', 'jasa kebersihan', 'percetakan'];
+
+async function aiBuatSoal() {
+  const tk = S.set.tingkat;
+  const coaTxt = S.coa.filter(a => a.kode !== '313').map(a => a.kode + ' ' + a.nama + ' (normal ' + (a.normal === 'D' ? 'debit' : 'kredit') + ')').join('\n');
+  const aturan = {
+    pemula: '6 transaksi. Hanya akun: Kas, Perlengkapan, Peralatan, Utang Usaha, Modal, Prive. Tanpa pendapatan dan beban. Tanpa penyesuaian.',
+    menengah: '8-9 transaksi. Boleh pakai Piutang, pendapatan jasa, beban gaji/listrik/sewa, prive. Tanpa penyesuaian (array "penyesuaian" kosong).',
+    sulit: '8-10 transaksi dan 3-4 jurnal penyesuaian akhir periode (perlengkapan terpakai, penyusutan peralatan, gaji terutang, sewa/asuransi dibayar dimuka).'
+  }[tk] || '';
+  const sys = 'Kamu guru akuntansi SMK di Indonesia. Buat SATU soal latihan siklus akuntansi perusahaan jasa kecil beserta KUNCI JAWABAN jurnalnya. ' +
+    'Pakai HANYA kode akun dari daftar ini:\n' + coaTxt + '\n\n' +
+    'Aturan: ' + aturan + ' Nominal bulat wajar (ratusan ribu sampai puluhan juta Rupiah). Tiap jurnal harus seimbang (total d = total k). ' +
+    'Tanggal berurutan dalam satu bulan. Uraian ditulis seperti soal buku sekolah, Bahasa Indonesia, menyebut nominal. ' +
+    'Keluarkan HANYA JSON, tanpa teks lain, dengan bentuk persis:\n' +
+    '{"judul":"...","usaha":"...","transaksi":[{"tgl":"1","uraian":"...","jurnal":[{"akun":"111","d":10000000,"k":0},{"akun":"311","d":0,"k":10000000}]}],"penyesuaian":[{"tgl":"30","uraian":"...","jurnal":[{"akun":"514","d":800000,"k":0},{"akun":"113","d":0,"k":800000}]}]}\n' +
+    'Pada tiap baris jurnal, "d" = jumlah debit dan "k" = jumlah kredit (salah satunya 0).';
+  const jenis = USAHA[Math.floor(Math.random() * USAHA.length)];
+  let user = 'Buat soal baru untuk usaha ' + jenis + '. Tingkat: ' + tk + '.';
+  let lastErr = null;
+  for (let i = 0; i < 2; i++) {
+    const raw = await callAI(sys, user + (lastErr ? '\nPerbaiki kesalahan sebelumnya: ' + lastErr : ''), { json: true });
+    try { const s = parseJSON(raw); s.penyesuaian = s.penyesuaian || []; return validateSoal(s); }
+    catch (e) { lastErr = e.message; }
+  }
+  throw new Error('AI dua kali membuat soal yang tidak valid (' + lastErr + '). Coba lagi.');
+}
+
+function aiPenjelasan(kind, payload) {
+  const sys = 'Kamu guru akuntansi SMK yang ramah dan tegas. Tugasmu menjelaskan kesalahan murid pada latihan akuntansi. ' +
+    'Kunci jawaban SUDAH BENAR dan pemeriksaan otomatis SUDAH dilakukan, jangan menghitung ulang dari nol dan jangan menilai ulang. ' +
+    'Untuk tiap kesalahan: sebut barisnya, jelaskan KENAPA salah dengan logika akuntansi (akun mana naik/turun, sisi debit/kredit), lalu beri cara berpikir yang benar. ' +
+    'Singkat, maksimal 8 poin, Bahasa Indonesia santai tapi sopan, tanpa basa-basi pembuka.';
+  return callAI(sys, payload);
+}
+
+/* =====================================================================
+   Tampilan
+   ===================================================================== */
+let curTab = 'soal', curJenis = 'umum', curRep = 'lr', draft = null, toastT;
+
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 2800);
+}
+const hasWork = () => S.jurnal.length > 0 || S.persamaan.some(r => PCOLS.some(c => r[c]));
+
+function showTab(t) {
+  curTab = t;
+  $$('.tab').forEach(s => { s.hidden = s.id !== 'tab-' + t; });
+  $$('#nav button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  renderTab(t);
+  window.scrollTo(0, 0);
+}
+function renderTab(t) {
+  ({ soal: renderSoal, pers: renderPers, jurnal: renderJurnal, besar: renderBesar, saldo: renderSaldo, lajur: renderLajur, laporan: renderLaporan, akun: renderAkun })[t]();
+  renderStrips();
+}
+
+/* ---------------- soal ---------------- */
+function narasiHTML(s) {
+  let h = '<div class="soal-judul">' + esc(s.judul || 'Soal') + '</div><div class="soal-usaha">' + esc(s.usaha || '') + '</div>';
+  h += '<ol class="narasi">' + s.transaksi.map(t => '<li><b>Tgl ' + esc(t.tgl) + '</b> — ' + esc(t.uraian) + '</li>').join('') + '</ol>';
+  if (s.penyesuaian && s.penyesuaian.length) {
+    h += '<div class="narasi-h">Data penyesuaian akhir periode</div><ol class="narasi">' + s.penyesuaian.map(t => '<li>' + esc(t.uraian) + '</li>').join('') + '</ol>';
+  }
+  return h;
+}
+function renderStrips() {
+  $$('.soal-strip-host').forEach(h => {
+    h.innerHTML = S.soal ? '<details class="soal-strip"><summary>📌 Soal: ' + esc(S.soal.judul || '') + '</summary>' + narasiHTML(S.soal) + '</details>' : '';
+  });
+}
+function keyTableHTML(list, jenisLabel) {
+  if (!list || !list.length) return '';
+  let h = '<h3 style="margin-top:10px">' + jenisLabel + '</h3>';
+  list.forEach((t, i) => {
+    const ls = normLines(t.jurnal).slice().sort((a, b) => (b.d > 0) - (a.d > 0));
+    h += '<div class="jcard"><div class="jcard-h"><span>' + (i + 1) + '. Tgl ' + esc(t.tgl) + '</span></div><table><tbody>' +
+      ls.map(l => '<tr><td class="' + (l.c ? 'kr' : '') + '">' + esc(l.k + ' ' + accName(l.k)) + '</td><td class="n">' + (l.d ? fmt(l.d) : '') + '</td><td class="n">' + (l.c ? fmt(l.c) : '') + '</td></tr>').join('') +
+      '</tbody></table><div class="jket">' + esc(t.uraian) + '</div></div>';
+  });
+  return h;
+}
+function renderSoal() {
+  const box = $('#soal-box');
+  const aksi = $('#soal-aksi'), kunci = $('#soal-kunci');
+  if (!S.soal) {
+    box.innerHTML = '<p class="muted">Belum ada soal. Tekan <b>Buat Soal dengan AI</b> (butuh API key di ⚙), atau <b>Soal Contoh</b> untuk langsung mencoba tanpa AI. Kalau soalnya dari guru, langsung isi tabel di tab Persamaan atau Jurnal.</p>';
+    aksi.hidden = true; kunci.hidden = true; return;
+  }
+  box.innerHTML = narasiHTML(S.soal);
+  aksi.hidden = false; kunci.hidden = false;
+  let sk = '';
+  const hp = S.hasil.pers, hj = S.hasil.jurnal;
+  if (hp) sk += '<p><span class="badge ' + (hp.benar === hp.total ? 'ok' : 'bad') + '">Persamaan: ' + hp.benar + '/' + hp.total + ' baris benar</span></p>';
+  if (hj) sk += '<p><span class="badge ' + (hj.benar === hj.total ? 'ok' : 'bad') + '">Jurnal: ' + hj.benar + '/' + hj.total + ' benar</span></p>';
+  $('#soal-skor').innerHTML = sk;
+  $('#kunci-box').innerHTML =
+    keyTableHTML(S.soal.transaksi, 'Jurnal umum (kunci)') + keyTableHTML(S.soal.penyesuaian, 'Jurnal penyesuaian (kunci)') +
+    '<h3 style="margin-top:12px">Tabel persamaan dasar (kunci)</h3><div class="tw"><table><thead><tr><th>Tgl</th>' + PCOLS.map(c => '<th>' + PLABEL[c] + '</th>').join('') + '</tr></thead><tbody>' +
+    keyPersamaan(S.soal).map(r => '<tr><td class="ctr">' + esc(r.tgl) + '</td>' + PCOLS.map(c => '<td class="n">' + fmt(r[c]) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>';
+}
+function setSoal(s) {
+  S.soal = s; S.hasil = {};
+  S.persamaan = s.transaksi.map(t => emptyPers(String(t.tgl), ''));
+  S.jurnal = []; draft = null;
+  save(); renderSoal(); renderStrips();
+}
+async function onSoalAI() {
+  if (hasWork() && !confirm('Soal baru akan mengosongkan jurnal dan tabel yang sekarang. Lanjut?')) return;
+  const btn = $('#btn-soal-ai'), box = $('#soal-box');
+  btn.disabled = true; box.innerHTML = '<p class="muted">AI lagi membuat soal dan kunci jawabannya…</p>';
+  try { const s = await aiBuatSoal(); setSoal(s); toast('Soal siap dikerjakan'); }
+  catch (e) { box.innerHTML = '<p class="muted" style="color:var(--red)">Gagal membuat soal: ' + esc(e.message) + '</p>'; }
+  finally { btn.disabled = false; }
+}
+function onSoalContoh() {
+  if (hasWork() && !confirm('Soal contoh akan mengosongkan jurnal dan tabel yang sekarang. Lanjut?')) return;
+  setSoal(JSON.parse(JSON.stringify(SOAL_CONTOH)));
+  toast('Soal contoh dimuat');
+}
+function onSoalHapus() {
+  if (!S.soal) return;
+  if (!confirm('Hapus soal ini? Jawaban di jurnal dan tabel tidak ikut terhapus.')) return;
+  S.soal = null; S.hasil = {}; save(); renderSoal(); renderStrips();
+}
+function onMuatKunci() {
+  if (!S.soal) return;
+  if (!confirm('Isi jurnalmu akan diganti dengan kunci jawaban. Lanjut?')) return;
+  S.jurnal = toKeyEntries(S.soal.transaksi, 'umum').concat(toKeyEntries(S.soal.penyesuaian, 'penyesuaian')).map(j => Object.assign({ id: uid() }, j));
+  S.hasil.jurnal = null; save(); toast('Kunci dimuat. Lihat Buku Besar dan Laporan.');
+}
+
+/* ---------------- persamaan dasar ---------------- */
+function persRowHTML(r, i, res) {
+  return '<td class="c-tgl"><input data-f="tgl" value="' + esc(r.tgl) + '" style="text-align:center"></td>' +
+    '<td class="c-ket"><input data-f="ket" value="' + esc(r.ket) + '" style="text-align:left;font-family:var(--f-body)"></td>' +
+    PCOLS.map(c => '<td class="' + (res ? (res.cells[c] ? 'ok' : 'bad') : '') + '"><input data-f="' + c + '" inputmode="numeric" value="' + (r[c] ? fmt(r[c]) : '') + '"></td>').join('') +
+    '<td class="c-st"></td><td class="c-del"><button class="btn-x" data-del="' + i + '" aria-label="Hapus baris">✕</button></td>';
+}
+function renderPers() {
+  $('#in-usaha').value = S.usaha; $('#in-periode').value = S.periode;
+  const tb = $('#pers-body'); tb.innerHTML = '';
+  S.persamaan.forEach((r, i) => {
+    const tr = document.createElement('tr'); tr.dataset.i = i;
+    tr.innerHTML = persRowHTML(r, i, S.hasil.pers && S.hasil.pers.rows[i]);
+    tb.appendChild(tr);
+  });
+  updatePersStatus();
+}
+function updatePersStatus() {
+  let last = null;
+  $$('#pers-body tr').forEach((tr, i) => {
+    const r = S.persamaan[i]; const h = r.kas + r.piutang + r.perlengkapan + r.peralatan, k = r.utang + r.modal;
+    const empty = !PCOLS.some(c => r[c]);
+    const st = $('.c-st', tr);
+    tr.classList.toggle('unbal', !empty && h !== k);
+    if (empty) { st.textContent = ''; st.className = 'c-st'; }
+    else if (h === k) { st.textContent = '✓ seimbang'; st.className = 'c-st good'; }
+    else { st.textContent = '≠ ' + fmt(Math.abs(h - k)); st.className = 'c-st nope'; }
+    last = { h, k };
+  });
+  const st = $('#pers-status');
+  if (!last) { st.innerHTML = ''; return; }
+  st.innerHTML = '<span>Baris terakhir:</span><span>Harta ' + rp(last.h) + '</span><b>=</b><span>Utang + Modal ' + rp(last.k) + '</span>' +
+    (last.h === last.k ? '<b class="ok">✓ Seimbang</b>' : '<b class="bad">✗ Belum seimbang</b>');
+}
+function onPersChange(e) {
+  const inp = e.target.closest('input[data-f]'); if (!inp) return;
+  const tr = inp.closest('tr'), i = +tr.dataset.i, f = inp.dataset.f;
+  if (f === 'tgl' || f === 'ket') S.persamaan[i][f] = inp.value;
+  else { S.persamaan[i][f] = num(inp.value); inp.value = S.persamaan[i][f] ? fmt(S.persamaan[i][f]) : ''; }
+  if (S.hasil.pers) { delete S.hasil.pers; $$('#pers-body td.ok,#pers-body td.bad').forEach(td => td.classList.remove('ok', 'bad')); }
+  save(); updatePersStatus();
+}
+function persAdd() {
+  const last = S.persamaan[S.persamaan.length - 1];
+  const nr = Object.assign(emptyPers(), last, { tgl: '', ket: '' });
+  S.persamaan.push(nr); save(); renderPers();
+  const ins = $$('#pers-body tr:last-child input'); if (ins[0]) ins[0].focus();
+}
+async function persSubmit() {
+  const card = $('#pers-fb-card'), fb = $('#pers-fb'); card.hidden = false;
+  if (!PCOLS.some(c => S.persamaan.some(r => r[c]))) { fb.textContent = 'Tabel masih kosong. Isi dulu saldo setelah tiap transaksi.'; return; }
+  if (!S.soal) { // tanpa kunci: AI memeriksa bebas
+    fb.innerHTML = '<span class="loading">AI sedang memeriksa tabelmu…</span>';
+    const txt = S.persamaan.map((r, i) => 'Baris ' + (i + 1) + ' (tgl ' + (r.tgl || '-') + ') ' + (r.ket || '-') + ': ' + PCOLS.map(c => PLABEL[c] + '=' + r[c]).join(', ')).join('\n');
+    try {
+      fb.textContent = await callAI('Kamu guru akuntansi SMK. Periksa tabel persamaan dasar akuntansi murid ini. Nilai tiap kolom adalah SALDO setelah transaksi. Cek tiap baris: Harta (Kas+Piutang+Perlengkapan+Peralatan) = Utang + Modal, dan apakah perubahan dari baris sebelumnya masuk akal untuk keterangannya. Sebut baris yang salah dan alasannya. Singkat, Bahasa Indonesia.', txt);
+    } catch (e) { fb.textContent = 'Gagal memeriksa: ' + e.message; }
+    return;
+  }
+  const key = keyPersamaan(S.soal), rows = []; let benar = 0; const salah = [];
+  key.forEach((k, i) => {
+    const u = S.persamaan[i], cells = {}; let all = !!u; const bad = [];
+    PCOLS.forEach(c => { const ok = !!u && (+u[c] || 0) === k[c]; cells[c] = ok; if (!ok) { all = false; bad.push(c); } });
+    rows.push({ ok: all, cells }); if (all) benar++; else salah.push({ i, k, u, bad });
+  });
+  S.hasil.pers = { rows, benar, total: key.length }; save(); renderPers();
+  const nilai = Math.round(benar / key.length * 100);
+  let h = '<div><span class="badge ' + (benar === key.length ? 'ok' : 'bad') + '">' + benar + ' dari ' + key.length + ' baris benar · nilai ' + nilai + '</span></div>';
+  if (!salah.length) { h += '<p>Mantap, semua baris sudah tepat. Lanjut kerjakan jurnalnya biar buku besar dan laporannya terbentuk.</p>'; fb.innerHTML = h; return; }
+  h += '<p>Baris yang masih salah:</p><ul>' + salah.map(s => '<li>Baris ' + (s.i + 1) + ' (tgl ' + esc(S.soal.transaksi[s.i].tgl) + '): ' + (s.u ? s.bad.map(c => PLABEL[c]).join(', ') : 'belum diisi') + '</li>').join('') + '</ul>';
+  h += '<div id="pers-ai"><span class="loading">AI sedang menyusun penjelasan…</span></div>';
+  fb.innerHTML = h;
+  if (!curKey()) { $('#pers-ai').innerHTML = '<span class="loading">Isi API key di ⚙ Pengaturan supaya AI bisa menjelaskan kesalahanmu. Hasil pemeriksaan di atas tetap akurat.</span>'; return; }
+  const payload = 'Soal:\n' + S.soal.transaksi.map(t => 'Tgl ' + t.tgl + ': ' + t.uraian).join('\n') +
+    '\n\nBaris yang salah (nilai kolom = saldo setelah transaksi):\n' + salah.map(s => {
+      const t = S.soal.transaksi[s.i];
+      return 'Baris ' + (s.i + 1) + ' [' + t.uraian + ']\n  jawaban murid: ' + (s.u ? PCOLS.map(c => PLABEL[c] + '=' + s.u[c]).join(', ') : '(kosong)') + '\n  kunci: ' + PCOLS.map(c => PLABEL[c] + '=' + s.k[c]).join(', ');
+    }).join('\n');
+  try { $('#pers-ai').textContent = await aiPenjelasan('pers', payload); }
+  catch (e) { $('#pers-ai').textContent = 'Penjelasan AI gagal: ' + e.message; }
+}
+
+/* ---------------- jurnal ---------------- */
+const J_HINT = {
+  umum: 'Catat tiap transaksi. Tulis akun yang di-debit dulu, lalu akun yang di-kredit.',
+  penyesuaian: 'Dibuat di akhir periode untuk beban yang belum dicatat (perlengkapan terpakai, penyusutan, gaji terutang, dst). Tombol ↺ membuat jurnal pembaliknya.',
+  penutup: 'Menutup akun sementara (pendapatan, beban, prive) ke Modal lewat Ikhtisar Laba Rugi. Tekan tombol otomatis, atau tulis sendiri.',
+  pembalik: 'Dibuat di awal periode berikutnya untuk membalik jurnal penyesuaian tertentu. Ketuk ↺ di tab Penyesuaian untuk membuatnya.'
+};
+function newDraft() { return { id: null, tgl: '', ket: '', jenis: curJenis, lines: [{ k: '', d: 0, c: 0 }, { k: '', d: 0, c: 0 }] }; }
+function akunOptions(sel) {
+  let h = '<option value="">— pilih akun —</option>';
+  Object.keys(KELOMPOK).forEach(k => {
+    const list = S.coa.filter(a => a.kelompok === k); if (!list.length) return;
+    h += '<optgroup label="' + KELOMPOK[k] + '">' + list.map(a => '<option value="' + a.kode + '"' + (a.kode === sel ? ' selected' : '') + '>' + esc(a.kode + ' ' + a.nama) + '</option>').join('') + '</optgroup>';
+  });
+  return h;
+}
+function renderForm() {
+  $('#j-tgl').value = draft.tgl; $('#j-ket').value = draft.ket;
+  $('#j-form-title').textContent = draft.id ? 'Ubah jurnal' : 'Jurnal baru — ' + JENIS[curJenis];
+  $('#j-cancel').hidden = !draft.id;
+  $('#j-lines').innerHTML = draft.lines.map((l, i) =>
+    '<div class="jline" data-i="' + i + '"><select class="in" data-f="k">' + akunOptions(l.k) + '</select><div class="jl-amt">' +
+    '<input class="in amt" data-f="d" inputmode="numeric" placeholder="Debit" value="' + (l.d ? fmt(l.d) : '') + '">' +
+    '<input class="in amt" data-f="c" inputmode="numeric" placeholder="Kredit" value="' + (l.c ? fmt(l.c) : '') + '">' +
+    '<button class="btn-x" data-rm="' + i + '" aria-label="Hapus baris">✕</button></div></div>').join('');
+  updateJStatus();
+}
+function updateJStatus() {
+  const td = draft.lines.reduce((s, l) => s + (l.d || 0), 0), tc = draft.lines.reduce((s, l) => s + (l.c || 0), 0);
+  $('#j-status').innerHTML = '<span>Debit ' + rp(td) + '</span><b>|</b><span>Kredit ' + rp(tc) + '</span>' +
+    (td === 0 && tc === 0 ? '' : (td === tc ? '<b class="ok">✓ Seimbang</b>' : '<b class="bad">✗ Selisih ' + rp(Math.abs(td - tc)) + '</b>'));
+}
+function renderJurnal() {
+  if (!draft) draft = newDraft();
+  $$('#j-jenis .chip').forEach(c => c.classList.toggle('on', c.dataset.j === curJenis));
+  $('#j-hint').textContent = J_HINT[curJenis];
+  $('#j-auto-tutup').hidden = curJenis !== 'penutup';
+  if (!draft.id) draft.jenis = curJenis;
+  renderForm();
+  const list = S.jurnal.filter(j => j.jenis === curJenis), hj = S.hasil.jurnal;
+  let h = '<h3>' + JENIS[curJenis] + ' (' + list.length + ')</h3>';
+  if (!list.length) h += '<p class="muted">Belum ada jurnal di bagian ini.</p>';
+  list.forEach(j => {
+    const ls = j.lines.slice().sort((a, b) => ((b.d > 0) - (a.d > 0)));
+    const badge = hj && hj.ok && j.id in hj.ok ? ' <span class="badge ' + (hj.ok[j.id] ? 'ok' : 'bad') + '">' + (hj.ok[j.id] ? '✓ benar' : '✗ salah') + '</span>' : '';
+    h += '<div class="jcard"><div class="jcard-h"><span>' + refOf(j) + ' · Tgl ' + esc(j.tgl) + badge + '</span><span class="acts">' +
+      '<button class="btn btn-ghost btn-sm" data-edit="' + j.id + '">Ubah</button>' +
+      (j.jenis === 'penyesuaian' ? '<button class="btn btn-ghost btn-sm" data-rev="' + j.id + '">↺ Pembalik</button>' : '') +
+      '<button class="btn btn-ghost btn-sm" data-del="' + j.id + '">Hapus</button></span></div>' +
+      '<table><thead><tr><th>Akun</th><th style="width:48px">Ref</th><th>Debit</th><th>Kredit</th></tr></thead><tbody>' +
+      ls.map(l => '<tr><td class="' + (l.c > 0 && !l.d ? 'kr' : '') + '">' + esc(accName(l.k)) + '</td><td class="ctr">' + esc(l.k) + '</td><td class="n">' + (l.d ? fmt(l.d) : '') + '</td><td class="n">' + (l.c ? fmt(l.c) : '') + '</td></tr>').join('') +
+      '</tbody></table>' + (j.ket ? '<div class="jket">(' + esc(j.ket) + ')</div>' : '') + '</div>';
+  });
+  $('#j-list').innerHTML = h;
+  $('#j-submit-card').hidden = !S.soal;
+}
+function onJLines(e) {
+  const line = e.target.closest('.jline'); if (!line) return;
+  const i = +line.dataset.i, f = e.target.dataset.f;
+  if (e.target.dataset.rm !== undefined) return;
+  if (f === 'k') { draft.lines[i].k = e.target.value; return; }
+  if (f === 'd' || f === 'c') {
+    const v = num(e.target.value); draft.lines[i][f] = v;
+    const other = f === 'd' ? 'c' : 'd';
+    if (v > 0 && draft.lines[i][other]) { draft.lines[i][other] = 0; $('[data-f="' + other + '"]', line).value = ''; }
+    if (e.type === 'change') e.target.value = v ? fmt(v) : '';
+    updateJStatus();
+  }
+}
+function jSave() {
+  draft.tgl = $('#j-tgl').value.trim(); draft.ket = $('#j-ket').value.trim();
+  if (draft.lines.some(l => (l.d || l.c) && !l.k)) return toast('Ada nominal yang akunnya belum dipilih.');
+  const lines = draft.lines.filter(l => l.k && (l.d || l.c));
+  if (lines.length < 2) return toast('Minimal 2 baris akun dengan nominal.');
+  const td = lines.reduce((s, l) => s + l.d, 0), tc = lines.reduce((s, l) => s + l.c, 0);
+  if (td !== tc) return toast('Debit dan kredit belum seimbang.');
+  const entry = { id: draft.id || uid(), tgl: draft.tgl, ket: draft.ket, jenis: draft.jenis, lines: lines.map(l => ({ k: l.k, d: l.d || 0, c: l.c || 0 })) };
+  const ix = S.jurnal.findIndex(j => j.id === entry.id);
+  if (ix >= 0) S.jurnal[ix] = entry; else S.jurnal.push(entry);
+  delete S.hasil.jurnal;
+  curJenis = entry.jenis;
+  const keepTgl = entry.tgl; draft = newDraft(); draft.tgl = keepTgl;
+  save(); renderJurnal(); toast('Jurnal disimpan dan diposting ke buku besar');
+}
+function autoTutup() {
+  if (!['311', '312', '313'].every(k => acc(k))) return toast('Akun 311, 312, dan 313 harus ada.');
+  if (S.jurnal.some(j => j.jenis === 'penutup') && !confirm('Jurnal penutup yang ada akan diganti. Lanjut?')) return;
+  S.jurnal = S.jurnal.filter(j => j.jenis !== 'penutup');
+  const lr = labaRugiData(), sm = sums('sesuai');
+  const tglList = S.jurnal.map(j => j.tgl).filter(Boolean); const tgl = tglList.length ? tglList[tglList.length - 1] : '';
+  const dr = (k, v) => v >= 0 ? { k, d: v, c: 0 } : { k, d: 0, c: -v };
+  const cr = (k, v) => v >= 0 ? { k, d: 0, c: v } : { k, d: -v, c: 0 };
+  const mk = (ket, lines) => S.jurnal.push({ id: uid(), tgl, ket, jenis: 'penutup', lines });
+  if (lr.pend.length) mk('Menutup akun pendapatan', lr.pend.map(x => dr(x.a.kode, x.v)).concat([cr('313', lr.tp)]));
+  if (lr.beb.length) mk('Menutup akun beban', [dr('313', lr.tb)].concat(lr.beb.map(x => cr(x.a.kode, x.v))));
+  if (lr.laba > 0) mk('Menutup Ikhtisar Laba Rugi (laba)', [dr('313', lr.laba), cr('311', lr.laba)]);
+  else if (lr.laba < 0) mk('Menutup Ikhtisar Laba Rugi (rugi)', [dr('311', -lr.laba), cr('313', -lr.laba)]);
+  const pv = saldoNormal(acc('312'), sm['312']);
+  if (pv > 0) mk('Menutup akun prive', [dr('311', pv), cr('312', pv)]);
+  save(); renderJurnal();
+  toast(S.jurnal.some(j => j.jenis === 'penutup') ? 'Jurnal penutup dibuat' : 'Belum ada akun yang perlu ditutup');
+}
+function onJList(e) {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.edit) {
+    const j = S.jurnal.find(x => x.id === b.dataset.edit); if (!j) return;
+    curJenis = j.jenis;
+    draft = { id: j.id, tgl: j.tgl, ket: j.ket, jenis: j.jenis, lines: j.lines.map(l => ({ k: l.k, d: l.d, c: l.c })) };
+    renderJurnal(); $('#j-form-card').scrollIntoView({ behavior: 'smooth' });
+  } else if (b.dataset.del) {
+    if (!confirm('Hapus jurnal ini?')) return;
+    S.jurnal = S.jurnal.filter(x => x.id !== b.dataset.del); delete S.hasil.jurnal; save(); renderJurnal();
+  } else if (b.dataset.rev) {
+    const j = S.jurnal.find(x => x.id === b.dataset.rev); if (!j) return;
+    S.jurnal.push({ id: uid(), tgl: '', ket: 'Pembalik: ' + (j.ket || ''), jenis: 'pembalik', lines: j.lines.map(l => ({ k: l.k, d: l.c, c: l.d })) });
+    save(); curJenis = 'pembalik'; draft = null; renderJurnal(); toast('Jurnal pembalik dibuat');
+  }
+}
+async function jSubmit() {
+  if (!S.soal) return toast('Belum ada soal.');
+  const card = $('#j-fb-card'), fb = $('#j-fb'); card.hidden = false;
+  const ku = toKeyEntries(S.soal.transaksi, 'umum'), kp = toKeyEntries(S.soal.penyesuaian, 'penyesuaian');
+  const uu = S.jurnal.filter(j => j.jenis === 'umum'), up = S.jurnal.filter(j => j.jenis === 'penyesuaian');
+  if (!uu.length && !up.length) { fb.textContent = 'Kamu belum mengisi jurnal umum atau penyesuaian.'; return; }
+  const mu = matchEntries(uu, ku), mp = matchEntries(up, kp), ok = {};
+  uu.forEach((j, i) => { ok[j.id] = mu.userOk[i]; }); up.forEach((j, i) => { ok[j.id] = mp.userOk[i]; });
+  const benar = mu.userOk.filter(Boolean).length + mp.userOk.filter(Boolean).length, total = ku.length + kp.length;
+  S.hasil.jurnal = { ok, benar, total }; save(); renderJurnal(); $('#j-fb-card').hidden = false;
+  const wrong = uu.filter((j, i) => !mu.userOk[i]).concat(up.filter((j, i) => !mp.userOk[i]));
+  const missK = mu.missing.map(i => ku[i]).concat(mp.missing.map(i => kp[i]));
+  const nilai = Math.round(benar / total * 100);
+  let h = '<div><span class="badge ' + (benar === total ? 'ok' : 'bad') + '">' + benar + ' dari ' + total + ' jurnal benar · nilai ' + nilai + '</span></div>';
+  if (benar === total && !wrong.length) { fb.innerHTML = h + '<p>Semua jurnal tepat. Cek Buku Besar, Neraca Saldo, dan Laporan untuk melihat hasil posting otomatisnya.</p>'; return; }
+  if (wrong.length) h += '<p>Jurnal yang belum cocok: ' + wrong.map(j => refOf(j) + ' (tgl ' + esc(j.tgl || '-') + ')').join(', ') + '.</p>';
+  if (missK.length) h += '<p>Transaksi yang belum ada jurnal benarnya: ' + missK.map(k => 'tgl ' + esc(k.tgl)).join(', ') + '.</p>';
+  h += '<div id="j-ai"><span class="loading">AI sedang menyusun penjelasan…</span></div>';
+  fb.innerHTML = h;
+  if (!curKey()) { $('#j-ai').innerHTML = '<span class="loading">Isi API key di ⚙ Pengaturan supaya AI bisa menjelaskan kesalahanmu.</span>'; return; }
+  const fmtJ = ls => ls.map(l => '  ' + (l.d ? 'Debit ' : 'Kredit ') + l.k + ' ' + accName(l.k) + ' ' + (l.d || l.c)).join('\n');
+  const payload = 'Soal:\n' + S.soal.transaksi.map(t => 'Tgl ' + t.tgl + ': ' + t.uraian).join('\n') + '\n' + (S.soal.penyesuaian || []).map(t => 'Penyesuaian: ' + t.uraian).join('\n') +
+    '\n\nJurnal murid yang salah:\n' + (wrong.map(j => refOf(j) + ' tgl ' + j.tgl + ' (' + (j.ket || '') + ')\n' + fmtJ(j.lines)).join('\n') || '(tidak ada)') +
+    '\n\nKunci untuk transaksi yang belum cocok:\n' + (missK.map(k => 'Tgl ' + k.tgl + ' [' + k.ket + ']\n' + fmtJ(k.lines)).join('\n') || '(tidak ada)');
+  try { $('#j-ai').textContent = await aiPenjelasan('jurnal', payload); }
+  catch (e) { $('#j-ai').textContent = 'Penjelasan AI gagal: ' + e.message; }
+}
+
+/* ---------------- buku besar ---------------- */
+function renderBesar() {
+  const sel = $('#b-akun'); const prev = sel.value || '*';
+  sel.innerHTML = '<option value="*">Semua akun yang bertransaksi</option>' + S.coa.map(a => '<option value="' + a.kode + '">' + esc(a.kode + ' ' + a.nama) + '</option>').join('');
+  sel.value = S.coa.some(a => a.kode === prev) || prev === '*' ? prev : '*';
+  const scope = $('#b-scope').value, fm = $('#b-fmt').value, pick = sel.value;
+  let h = '', n = 0;
+  S.coa.forEach(a => {
+    if (pick !== '*' && a.kode !== pick) return;
+    const rows = ledger(a.kode, scope);
+    if (!rows.length && pick === '*') return;
+    n++;
+    const last = rows.length ? rows[rows.length - 1].saldo : 0;
+    const norm = a.normal === 'D' ? 'Debit' : 'Kredit';
+    if (fm === 'saldo') {
+      h += '<div class="card"><h3>' + esc(a.kode + ' · ' + a.nama) + ' <span class="badge ok">normal ' + norm + '</span></h3><div class="tw"><table><thead><tr><th style="width:44px">Tgl</th><th>Keterangan</th><th style="width:52px">Ref</th><th>Debit</th><th>Kredit</th><th>Saldo</th></tr></thead><tbody>' +
+        (rows.length ? rows.map(r => '<tr><td class="ctr">' + esc(r.tgl) + '</td><td>' + esc(r.ket) + '</td><td class="ctr">' + r.ref + '</td><td class="n">' + (r.d ? fmt(r.d) : '') + '</td><td class="n">' + (r.c ? fmt(r.c) : '') + '</td><td class="n">' + rp(r.saldo).replace('Rp ', '') + '</td></tr>').join('') : '<tr><td colspan="6" class="ctr">Belum ada transaksi</td></tr>') +
+        '<tr class="tot"><td colspan="3">Saldo akhir</td><td class="n">' + fmt(rows.reduce((s, r) => s + r.d, 0)) + '</td><td class="n">' + fmt(rows.reduce((s, r) => s + r.c, 0)) + '</td><td class="n">' + rp(last) + '</td></tr></tbody></table></div></div>';
+    } else {
+      const ds = rows.filter(r => r.d), cs = rows.filter(r => r.c);
+      const td = ds.reduce((s, r) => s + r.d, 0), tc = cs.reduce((s, r) => s + r.c, 0);
+      const li = (r, v) => '<div class="li"><span>' + esc(r.tgl) + ' ' + esc(r.ref) + '</span><span>' + fmt(v) + '</span></div>';
+      h += '<div class="tacc"><div class="tacc-h"><span>' + esc(a.kode + ' ' + a.nama) + '</span><span>normal ' + norm + '</span></div><div class="tt"><div><b>Debit</b>' + ds.map(r => li(r, r.d)).join('') + '</div><div><b>Kredit</b>' + cs.map(r => li(r, r.c)).join('') + '</div></div>' +
+        '<div class="tfoot"><span>Σ ' + fmt(td) + '</span><span>Saldo ' + rp(last) + ' (' + norm + ')</span><span>Σ ' + fmt(tc) + '</span></div></div>';
+    }
+  });
+  $('#b-out').innerHTML = n ? h : '<div class="card"><p class="muted">Belum ada transaksi. Simpan jurnal di tab Jurnal dan buku besar terisi otomatis.</p></div>';
+}
+
+/* ---------------- neraca saldo & lajur ---------------- */
+function renderSaldo() {
+  const r = neracaSaldo($('#s-scope').value);
+  if (!r.rows.length) { $('#s-out').innerHTML = '<div class="card"><p class="muted">Belum ada data. Simpan jurnal dulu.</p></div>'; return; }
+  $('#s-out').innerHTML = '<div class="card"><div style="text-align:center;font-family:var(--f-display);font-weight:700">' + esc(S.usaha) + '</div><div style="text-align:center;font-weight:600">Neraca Saldo</div><div class="tw" style="margin-top:10px"><table><thead><tr><th style="width:56px">Kode</th><th>Nama akun</th><th>Debit</th><th>Kredit</th></tr></thead><tbody>' +
+    r.rows.map(x => '<tr><td class="ctr">' + x.a.kode + '</td><td>' + esc(x.a.nama) + '</td><td class="n">' + (x.d ? fmt(x.d) : '') + '</td><td class="n">' + (x.c ? fmt(x.c) : '') + '</td></tr>').join('') +
+    '<tr class="tot"><td colspan="2">Jumlah</td><td class="n">' + fmt(r.td) + '</td><td class="n">' + fmt(r.tc) + '</td></tr></tbody></table></div><p style="margin:10px 0 0"><span class="badge ' + (r.ok ? 'ok' : 'bad') + '">' + (r.ok ? '✓ Seimbang' : '✗ Tidak seimbang, selisih ' + rp(Math.abs(r.td - r.tc))) + '</span></p></div>';
+}
+function renderLajur() {
+  const L = lajur();
+  if (!L.rows.length) { $('#l-out').innerHTML = '<div class="card"><p class="muted">Belum ada data. Simpan jurnal umum dan penyesuaian dulu.</p></div>'; return; }
+  const z = v => v ? fmt(v) : '';
+  const cell = (v) => '<td class="n">' + z(v) + '</td>';
+  let h = '<div class="tw"><table class="lajur"><thead><tr><th rowspan="2" style="width:48px">Kode</th><th rowspan="2" style="min-width:170px">Nama akun</th><th colspan="2">Neraca Saldo</th><th colspan="2">Penyesuaian</th><th colspan="2">NS Disesuaikan</th><th colspan="2">Laba Rugi</th><th colspan="2">Neraca</th></tr><tr>' + '<th>D</th><th>K</th>'.repeat(5) + '</tr></thead><tbody>';
+  L.rows.forEach(r => { h += '<tr><td class="ctr">' + r.a.kode + '</td><td>' + esc(r.a.nama) + '</td>' + cell(r.nsd) + cell(r.nsc) + cell(r.ajd) + cell(r.ajc) + cell(r.sd) + cell(r.sc) + cell(r.lrd) + cell(r.lrc) + cell(r.nrd) + cell(r.nrc) + '</tr>'; });
+  h += '<tr class="tot"><td colspan="2">Jumlah</td>' + cell(L.T.nsd) + cell(L.T.nsc) + cell(L.T.ajd) + cell(L.T.ajc) + cell(L.T.sd) + cell(L.T.sc) + cell(L.T.lrd) + cell(L.T.lrc) + cell(L.T.nrd) + cell(L.T.nrc) + '</tr>';
+  h += '<tr><td colspan="2"><b>' + (L.selisih >= 0 ? 'Laba bersih' : 'Rugi bersih') + '</b></td><td colspan="6"></td>' + cell(L.adj.lrd) + cell(L.adj.lrc) + cell(L.adj.nrd) + cell(L.adj.nrc) + '</tr>';
+  h += '<tr class="tot"><td colspan="2">Jumlah akhir</td><td colspan="6"></td>' + cell(L.Z.lrd) + cell(L.Z.lrc) + cell(L.Z.nrd) + cell(L.Z.nrc) + '</tr></tbody></table></div>';
+  const ok = L.T.nsd === L.T.nsc && L.T.ajd === L.T.ajc && L.Z.lrd === L.Z.lrc && L.Z.nrd === L.Z.nrc;
+  h += '<p style="margin:10px 0 0"><span class="badge ' + (ok ? 'ok' : 'bad') + '">' + (ok ? '✓ Semua kolom seimbang' : '✗ Ada kolom yang belum seimbang') + '</span></p>';
+  $('#l-out').innerHTML = h;
+}
+
+/* ---------------- laporan ---------------- */
+function renderLaporan() {
+  $$('#r-chips .chip').forEach(c => c.classList.toggle('on', c.dataset.r === curRep));
+  if (!S.jurnal.length) { $('#r-out').innerHTML = '<div class="card"><p class="muted">Belum ada jurnal. Laporan dibuat otomatis dari jurnal yang tersimpan.</p></div>'; return; }
+  const r = buildLaporan(curRep);
+  let h = '<div class="card"><div style="text-align:center"><div style="font-family:var(--f-display);font-weight:700">' + esc(S.usaha) + '</div><div style="font-weight:600">' + r.title + '</div><div class="muted">' + esc(S.periode || '') + '</div></div><div class="tw" style="margin-top:10px"><table class="rep"><tbody>';
+  r.lines.forEach(l => {
+    if (l.type === 'head') h += '<tr class="sec"><td colspan="2">' + esc(l.label) + '</td></tr>';
+    else if (l.type === 'tot') h += '<tr class="tot"><td>' + esc(l.label) + '</td><td class="n">' + rp(l.v) + '</td></tr>';
+    else if (l.type === 'sub') h += '<tr><td class="ind1"><b>' + esc(l.label) + '</b></td><td class="n"><b>' + rp(l.v) + '</b></td></tr>';
+    else h += '<tr><td class="ind' + (l.ind || 0) + '">' + esc(l.label) + '</td><td class="n">' + (l.v == null ? '' : rp(l.v)) + '</td></tr>';
+  });
+  h += '</tbody></table></div>';
+  if (curRep === 'nr') h += '<p style="margin:10px 0 0"><span class="badge ' + (r.ok ? 'ok' : 'bad') + '">' + (r.ok ? '✓ Aset = Kewajiban + Ekuitas' : '✗ Tidak seimbang: aset ' + rp(r.ta) + ' vs ' + rp(r.tke)) + '</span></p>';
+  if (curRep === 'ak') h += '<p style="margin:10px 0 0"><span class="badge ' + (r.ok ? 'ok' : 'bad') + '">' + (r.ok ? '✓ Cocok dengan saldo kas di buku besar' : '✗ Tidak cocok dengan saldo kas (' + rp(r.kasAkhir) + ')') + '</span></p>';
+  $('#r-out').innerHTML = h + '</div>';
+}
+function copyText(t) {
+  if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t).then(() => true).catch(() => fallbackCopy(t));
+  return Promise.resolve(fallbackCopy(t));
+}
+function fallbackCopy(t) {
+  const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+  let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; } ta.remove(); return ok;
+}
+
+/* ---------------- akun ---------------- */
+function usedKode(k) { return S.jurnal.some(j => j.lines.some(l => l.k === k)); }
+function fillSub() {
+  const k = $('#a-kel').value; $('#a-sub').innerHTML = SUBS[k].map(s => '<option>' + s + '</option>').join('');
+  $('#a-normal').value = (k === 'aset' || k === 'beban') ? 'D' : 'K';
+}
+function renderAkun() {
+  if (!$('#a-sub').options.length) fillSub();
+  let h = '';
+  Object.keys(KELOMPOK).forEach(k => {
+    const list = S.coa.filter(a => a.kelompok === k); if (!list.length) return;
+    h += '<div class="card"><h3>' + KELOMPOK[k] + '</h3><div class="tw"><table><thead><tr><th style="width:56px">Kode</th><th>Nama akun</th><th>Sub</th><th style="width:70px">Normal</th><th style="width:40px"></th></tr></thead><tbody>' +
+      list.map(a => '<tr><td class="ctr">' + a.kode + '</td><td>' + esc(a.nama) + '</td><td>' + esc(a.sub) + '</td><td class="ctr">' + (a.normal === 'D' ? 'Debit' : 'Kredit') + '</td><td class="ctr">' + (usedKode(a.kode) ? '' : '<button class="btn-x" data-del="' + a.kode + '" aria-label="Hapus akun">✕</button>') + '</td></tr>').join('') + '</tbody></table></div></div>';
+  });
+  $('#a-list').innerHTML = h;
+}
+function addAkun() {
+  const kode = $('#a-kode').value.trim(), nama = $('#a-nama').value.trim();
+  if (!/^\d{2,6}$/.test(kode)) return toast('Kode akun berupa angka 2 sampai 6 digit.');
+  if (!nama) return toast('Nama akun belum diisi.');
+  if (acc(kode)) return toast('Kode ' + kode + ' sudah dipakai.');
+  S.coa.push({ kode, nama, kelompok: $('#a-kel').value, sub: $('#a-sub').value, normal: $('#a-normal').value });
+  S.coa.sort((a, b) => a.kode.localeCompare(b.kode, undefined, { numeric: true }));
+  save(); $('#a-kode').value = ''; $('#a-nama').value = ''; renderAkun(); toast('Akun ditambahkan');
+}
+
+/* ---------------- pengaturan ---------------- */
+function openSettings() {
+  const sel = $('#st-prov');
+  sel.innerHTML = Object.keys(PROVIDERS).map(k => '<option value="' + k + '">' + PROVIDERS[k].label + '</option>').join('');
+  sel.value = S.set.provider; fillSettings(false);
+  $('#st-tingkat').value = S.set.tingkat; $('#st-fetch-msg').textContent = ''; $('#bk-text').value = '';
+  $('#ov').hidden = false;
+}
+function fillSettings(fromChange) {
+  const k = $('#st-prov').value, p = PROVIDERS[k];
+  $('#st-base-wrap').hidden = k !== 'custom';
+  $('#st-model').value = fromChange ? p.model : (S.set.provider === k ? (S.set.model || p.model) : p.model);
+  $('#st-base').value = S.set.baseUrl || '';
+  $('#st-key').value = (S.set.keys || {})[k] || '';
+  $('#st-models').innerHTML = '';
+}
+function saveSettings() {
+  const k = $('#st-prov').value;
+  S.set.provider = k; S.set.model = $('#st-model').value.trim(); S.set.baseUrl = $('#st-base').value.trim(); S.set.tingkat = $('#st-tingkat').value;
+  const key = $('#st-key').value.trim(); S.set.keys = S.set.keys || {}; if (key) S.set.keys[k] = key; else delete S.set.keys[k];
+  save(); $('#ov').hidden = true; renderFoot(); toast('Pengaturan disimpan');
+}
+async function onFetchModels() {
+  const msg = $('#st-fetch-msg'); const k = $('#st-prov').value;
+  const keep = JSON.parse(JSON.stringify(S.set));
+  S.set.provider = k; S.set.keys = Object.assign({}, S.set.keys); const typed = $('#st-key').value.trim(); if (typed) S.set.keys[k] = typed; S.set.baseUrl = $('#st-base').value.trim();
+  msg.textContent = 'Mengambil daftar model…';
+  try {
+    const r = await fetchModels();
+    $('#st-models').innerHTML = r.list.map(m => '<option value="' + esc(m) + '">').join('');
+    if (r.best) { $('#st-model').value = r.best; msg.textContent = 'Model terbaru terdeteksi: ' + r.best + ' (' + r.list.length + ' model tersedia).'; }
+    else msg.textContent = r.list.length + ' model ditemukan. Ketuk kolom Model untuk memilih.';
+  } catch (e) { msg.textContent = 'Gagal: ' + e.message; }
+  finally { S.set.provider = keep.provider; S.set.keys = keep.keys; S.set.baseUrl = keep.baseUrl; }
+}
+function renderFoot() {
+  $('#foot-ai').textContent = curKey() ? 'AI aktif: ' + curProv().label + ' · ' + curModel() : curProv().label + ' dipilih. API key belum diisi (soal contoh dan pemeriksaan otomatis tetap jalan).';
+}
+
+/* ---------------- init ---------------- */
+function init() {
+  loadState(); draft = newDraft();
+  $('#nav').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (b) showTab(b.dataset.tab); });
+  document.addEventListener('click', e => { const g = e.target.closest('[data-goto]'); if (g) showTab(g.dataset.goto); });
+  $('#btn-settings').addEventListener('click', openSettings);
+  $('#ov-close').addEventListener('click', () => { $('#ov').hidden = true; });
+  $('#ov').addEventListener('click', e => { if (e.target.id === 'ov') $('#ov').hidden = true; });
+  $('#st-prov').addEventListener('change', () => fillSettings(true));
+  $('#st-save').addEventListener('click', saveSettings);
+  $('#st-fetch').addEventListener('click', onFetchModels);
+  $('#bk-export').addEventListener('click', () => { const c = JSON.parse(JSON.stringify(S)); c.set.keys = {}; $('#bk-text').value = JSON.stringify(c); });
+  $('#bk-import').addEventListener('click', () => {
+    try {
+      const p = JSON.parse($('#bk-text').value); if (!p || p.v !== 2) throw new Error('format tidak dikenal');
+      const keys = S.set.keys; S = Object.assign(freshState(), p); S.set = Object.assign(freshState().set, p.set || {}, { keys }); save(); draft = newDraft();
+      $('#ov').hidden = true; showTab(curTab); toast('Data dipulihkan');
+    } catch (e) { toast('Teks cadangan tidak valid: ' + e.message); }
+  });
+  $('#bk-reset').addEventListener('click', () => {
+    if (!confirm('Hapus semua data (jurnal, soal, tabel)? API key tetap tersimpan.')) return;
+    const set = S.set; S = freshState(); S.set = set; save(); draft = newDraft(); $('#ov').hidden = true; showTab('soal'); toast('Data dihapus');
+  });
+
+  $('#btn-soal-ai').addEventListener('click', onSoalAI);
+  $('#btn-soal-contoh').addEventListener('click', onSoalContoh);
+  $('#btn-soal-hapus').addEventListener('click', onSoalHapus);
+  $('#btn-muat-kunci').addEventListener('click', onMuatKunci);
+
+  $('#in-usaha').addEventListener('change', e => { S.usaha = e.target.value; save(); });
+  $('#in-periode').addEventListener('change', e => { S.periode = e.target.value; save(); });
+  $('#pers-body').addEventListener('change', onPersChange);
+  $('#pers-body').addEventListener('click', e => {
+    const b = e.target.closest('[data-del]'); if (!b) return;
+    S.persamaan.splice(+b.dataset.del, 1); if (!S.persamaan.length) S.persamaan.push(emptyPers());
+    delete S.hasil.pers; save(); renderPers();
+  });
+  $('#pers-add').addEventListener('click', persAdd);
+  $('#pers-submit').addEventListener('click', persSubmit);
+  $('#pers-clear').addEventListener('click', () => {
+    if (!confirm('Kosongkan seluruh tabel persamaan dasar?')) return;
+    S.persamaan = S.soal ? S.soal.transaksi.map(t => emptyPers(String(t.tgl), '')) : [emptyPers()];
+    delete S.hasil.pers; save(); renderPers(); $('#pers-fb-card').hidden = true;
+  });
+
+  $('#j-jenis').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    curJenis = c.dataset.j; if (draft && !draft.id) draft = newDraft(); else if (draft && draft.id) draft = newDraft();
+    renderJurnal();
+  });
+  $('#j-lines').addEventListener('input', onJLines);
+  $('#j-lines').addEventListener('change', onJLines);
+  $('#j-lines').addEventListener('click', e => {
+    const b = e.target.closest('[data-rm]'); if (!b) return;
+    if (draft.lines.length <= 2) { const l = draft.lines[+b.dataset.rm]; l.k = ''; l.d = 0; l.c = 0; } else draft.lines.splice(+b.dataset.rm, 1);
+    renderForm();
+  });
+  $('#j-addline').addEventListener('click', () => { draft.tgl = $('#j-tgl').value; draft.ket = $('#j-ket').value; draft.lines.push({ k: '', d: 0, c: 0 }); renderForm(); });
+  $('#j-tgl').addEventListener('input', e => { draft.tgl = e.target.value; });
+  $('#j-ket').addEventListener('input', e => { draft.ket = e.target.value; });
+  $('#j-save').addEventListener('click', jSave);
+  $('#j-cancel').addEventListener('click', () => { draft = newDraft(); renderJurnal(); });
+  $('#j-auto-tutup').addEventListener('click', autoTutup);
+  $('#j-list').addEventListener('click', onJList);
+  $('#j-submit').addEventListener('click', jSubmit);
+
+  ['b-akun', 'b-scope', 'b-fmt'].forEach(id => $('#' + id).addEventListener('change', renderBesar));
+  $('#s-scope').addEventListener('change', renderSaldo);
+  $('#r-chips').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; curRep = c.dataset.r; renderLaporan(); });
+  $('#r-copy').addEventListener('click', async () => {
+    if (!S.jurnal.length) return toast('Belum ada jurnal.');
+    const ok = await copyText(reportToText(buildLaporan(curRep))); toast(ok ? 'Laporan disalin' : 'Gagal menyalin');
+  });
+  $('#a-kel').addEventListener('change', fillSub);
+  $('#a-add').addEventListener('click', addAkun);
+  $('#a-list').addEventListener('click', e => {
+    const b = e.target.closest('[data-del]'); if (!b) return;
+    if (!confirm('Hapus akun ' + b.dataset.del + '?')) return;
+    S.coa = S.coa.filter(a => a.kode !== b.dataset.del); save(); renderAkun();
+  });
+  $('#a-reset').addEventListener('click', () => {
+    if (S.jurnal.length && !confirm('Bagan akun dikembalikan ke standar. Jurnal yang memakai akun tambahanmu bisa rusak. Lanjut?')) return;
+    S.coa = makeCOA(); save(); renderAkun(); toast('Bagan akun standar dipulihkan');
+  });
+
+  renderFoot(); showTab('soal');
+  if (!Object.keys(S.set.keys || {}).length) setTimeout(() => toast('Mau soal dari AI? Isi API key lewat ikon ⚙. Soal Contoh jalan tanpa AI.'), 900);
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !window.Capacitor) navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
