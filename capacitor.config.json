@@ -1,0 +1,9 @@
+{
+  "appId": "com.imranperatama.bukukerja",
+  "appName": "Buku Kerja Akuntansi",
+  "webDir": "www",
+  "server": { "androidScheme": "https" },
+  "plugins": {
+    "CapacitorHttp": { "enabled": true }
+  }
+}
